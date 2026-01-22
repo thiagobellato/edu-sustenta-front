@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -12,10 +17,39 @@ export default {
         "2xl": "1400px",
       },
     },
-    extend: {
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+extend: {
+  fontFamily: {
+    sans: ["Inter", "system-ui", "sans-serif"],           // padrão
+    display: ["Special Gothic Expanded One", "sans-serif"], // títulos
+  },
+
+  /* =========================
+     BACKGROUNDS RADIAIS
+  ========================= */
+  backgroundImage: {
+        // radial padrão (igual doc Tailwind)
+        radial: "radial-gradient(var(--tw-gradient-stops))",
+
+        // radial centralizado
+        "radial-center":
+          "radial-gradient(circle at center, var(--tw-gradient-stops))",
+
+        // radial no topo (hero section)
+        "radial-top":
+          "radial-gradient(circle at top, var(--tw-gradient-stops))",
+
+        // spotlight / glow moderno
+        "radial-spotlight":
+          "radial-gradient(600px circle at center, rgba(16,185,129,0.25), transparent 40%)",
+
+        // usando suas CSS vars (tema)
+        "radial-primary":
+          "radial-gradient(circle at top, hsl(var(--primary)) 0%, transparent 60%)",
       },
+
+      /* =========================
+         CORES
+      ========================= */
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -54,9 +88,11 @@ export default {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
           primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          "primary-foreground":
+            "hsl(var(--sidebar-primary-foreground))",
           accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          "accent-foreground":
+            "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
@@ -78,6 +114,10 @@ export default {
           600: "hsl(var(--teal-600))",
         },
       },
+
+      /* =========================
+         BORDER RADIUS
+      ========================= */
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -85,13 +125,21 @@ export default {
         xl: "1rem",
         "2xl": "1.5rem",
       },
+
+      /* =========================
+         SHADOWS
+      ========================= */
       boxShadow: {
-        'sm': 'var(--shadow-sm)',
-        'md': 'var(--shadow-md)',
-        'lg': 'var(--shadow-lg)',
-        'xl': 'var(--shadow-xl)',
-        'glow': 'var(--shadow-glow)',
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
+        xl: "var(--shadow-xl)",
+        glow: "var(--shadow-glow)",
       },
+
+      /* =========================
+         ANIMAÇÕES
+      ========================= */
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -101,7 +149,7 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "float": {
+        float: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
@@ -114,10 +162,11 @@ export default {
           to: { opacity: "1" },
         },
       },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "float": "float 6s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
         "slide-up": "slide-up 0.5s ease-out",
         "fade-in": "fade-in 0.5s ease-out",
       },
