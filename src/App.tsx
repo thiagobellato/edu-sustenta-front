@@ -11,6 +11,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import About from "@/pages/about";
 import NotFound from "@/pages/NotFound";
 
 // Protected Pages
@@ -42,6 +43,7 @@ const App = () => (
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
