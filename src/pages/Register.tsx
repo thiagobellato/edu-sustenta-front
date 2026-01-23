@@ -64,39 +64,39 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Left Side - Decorative */}
-      <div className="hidden flex-1 bg-primary lg:flex lg:items-center lg:justify-center">
-        <div className="max-w-md p-12 text-center text-primary-foreground">
+    <div className="flex min-h-screen" style={{
+      background: `
+        radial-gradient(circle at 25% 35%, rgba(69,196,176,0.35) 0%, transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(154,235,163,0.25) 0%, transparent 45%),
+        linear-gradient(180deg, #012030 0%, #012030 100%)
+      `
+    }}>
+      {/* Left Side - Decorative (Hidden on mobile) */}
+      <div className="hidden flex-1 lg:flex lg:items-center lg:justify-center">
+        <div className="max-w-md p-12 text-center text-white">
           <div className="mb-8 flex justify-center">
             <img
               src={studentsGroup}
               alt="Grupo de estudantes"
-              className="h-64 w-auto object-contain"
+              className="h-72 w-auto object-contain"
             />
           </div>
-          <h2 className="mb-4 text-3xl font-bold">Junte-se a nós!</h2>
-          <p className="text-lg text-primary-foreground/80">
-            Faça parte da comunidade que está transformando a educação ambiental
-            no Brasil.
+          <h2 className="font-display mb-4 text-3xl font-bold">Junte-se a nós!</h2>
+          <p className="text-lg text-white/80">
+            Faça parte da comunidade que está transformando a educação ambiental no Brasil.
           </p>
         </div>
       </div>
 
       {/* Right Side - Form */}
       <div className="flex flex-1 items-center justify-center p-8">
-        <div className="w-full max-w-md">
-          <Link to="/" className="mb-8 flex items-center gap-2">
-            <span className="text-xl font-bold text-foreground">
-              {'</'}<span className="text-accent">Edu</span>Sustenta{'>'}
-            </span>
-          </Link>
-
-          <Card className="border-0 shadow-xl">
+        <div className="w-full max-w-md space-y-6">
+          
+          <Card className="border-0 shadow-2xl">
             <CardHeader className="space-y-1">
-              <CardTitle className="text-2xl">Criar conta</CardTitle>
+              <CardTitle className="font-display text-[#012030] text-2xl">Criar conta</CardTitle>
               <CardDescription>
-                Preencha os dados abaixo para criar sua conta
+                Preencha os dados abaixo para começar sua jornada
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -105,14 +105,11 @@ export default function Register() {
                   <Label htmlFor="name">Nome completo</Label>
                   <Input
                     id="name"
-                    type="text"
                     placeholder="Seu nome completo"
                     {...register('name')}
                     className={errors.name ? 'border-destructive' : ''}
                   />
-                  {errors.name && (
-                    <p className="text-sm text-destructive">{errors.name.message}</p>
-                  )}
+                  {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
                 </div>
 
                 <div className="space-y-2">
@@ -124,56 +121,57 @@ export default function Register() {
                     {...register('email')}
                     className={errors.email ? 'border-destructive' : ''}
                   />
-                  {errors.email && (
-                    <p className="text-sm text-destructive">{errors.email.message}</p>
-                  )}
+                  {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="password">Senha</Label>
-                  <div className="relative">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Senha</Label>
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="••••••••"
+                        {...register('password')}
+                        className={errors.password ? 'border-destructive' : ''}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword">Confirmar</Label>
                     <Input
-                      id="password"
+                      id="confirmPassword"
                       type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
-                      {...register('password')}
-                      className={errors.password ? 'border-destructive pr-10' : 'pr-10'}
+                      {...register('confirmPassword')}
+                      className={errors.confirmPassword ? 'border-destructive' : ''}
                     />
+                  </div>
+                </div>
+                
+                {/* Botão de mostrar senha posicionado abaixo ou erros */}
+                <div className="flex justify-end">
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      className="flex items-center gap-2 text-xs text-muted-foreground hover:text-[#012030]"
                     >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
+                      {showPassword ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                      {showPassword ? 'Ocultar senhas' : 'Mostrar senhas'}
                     </button>
-                  </div>
-                  {errors.password && (
-                    <p className="text-sm text-destructive">{errors.password.message}</p>
-                  )}
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirmar senha</Label>
-                  <Input
-                    id="confirmPassword"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="••••••••"
-                    {...register('confirmPassword')}
-                    className={errors.confirmPassword ? 'border-destructive' : ''}
-                  />
-                  {errors.confirmPassword && (
-                    <p className="text-sm text-destructive">{errors.confirmPassword.message}</p>
-                  )}
-                </div>
+                {(errors.password || errors.confirmPassword) && (
+                    <p className="text-xs text-destructive">
+                        {errors.password?.message || errors.confirmPassword?.message}
+                    </p>
+                )}
 
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full gradient-primary text-primary-foreground"
+                  className="w-full font-display rounded-lg bg-gradient-to-r from-emerald-400 to-green-200 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-zinc-950 transition-all duration-300 ease-out hover:from-emerald-400 hover:to-green-50 hover:shadow-xl hover:shadow-emerald-400/60 hover:scale-[1.02]"
                 >
                   {isLoading ? (
                     <>
@@ -181,14 +179,14 @@ export default function Register() {
                       Criando conta...
                     </>
                   ) : (
-                    'Criar conta'
+                    'Cadastrar agora'
                   )}
                 </Button>
               </form>
 
               <div className="mt-6 text-center text-sm text-muted-foreground">
                 Já tem uma conta?{' '}
-                <Link to="/login" className="font-medium text-accent hover:underline">
+                <Link to="/login" className="font-display font-bold text-[#012030] hover:underline">
                   Entrar
                 </Link>
               </div>

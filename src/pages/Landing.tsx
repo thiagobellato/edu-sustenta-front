@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
+
 import heroIllustration from '@/assets/hero-illustration.png';
 import iconGamepad from '@/assets/icon-gamepad.png';
 import iconTeacher from '@/assets/icon-teacher.png';
@@ -13,8 +14,7 @@ import iconQuestion from '@/assets/icon-question.png';
 import iconReward from '@/assets/icon-reward.png';
 import iconSend from '@/assets/icon-send.png';
 import logo from '@/assets/LOGO.svg';
-import background from '@/assets/background.svg';
-import link from 'react-router-dom';
+
 
 const featureCards = [
   {
@@ -28,7 +28,7 @@ const featureCards = [
     image: iconTeacher,
   },
   {
-    title: 'Aprenda jogando',
+    title: 'Aprenda com suas conquistas ',
     description: 'Ganhe pontos, conquiste insígnias e acompanhe seu progresso.',
     image: iconTrophy,
   },
@@ -96,21 +96,14 @@ export default function Landing() {
   
 
           <nav className="hidden items-center gap-12 md:flex hover:shadow-xl hover:shadow-emerald-400/60">
-            <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">
-              Home
-            </Link>
-            <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">
-              Sobre
-            </Link>
-            <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">
-              Contato
+            <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">Sobre</Link>            
+            <Link to="/login" className="font-display text-sm font-medium  text-emerald-400 text-accent hover:underline">
+            LOGIN
             </Link>
           </nav>
 
 
-          <Link to="/login" className="text-sm font-medium text-emerald-400 text-accent hover:underline">
-            Login
-          </Link>
+          
         </div>
       </header>
         
@@ -118,38 +111,31 @@ export default function Landing() {
           <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:justify-between">
             {/* Left Content */}
             <div className="max-w-lg text-left lg:pt-8">
-              <h1 className="font-display mb-6 text-4xl leading-tight text-primary-foreground text-white sm:text-5xl">
+              <h1 className="font-display mb-6 text-5xl leading-tight text-primary-foreground text-white sm:text-5xl">
                 Conhecimento livre para transformar o mundo.
               </h1>
 
-              <p className="text-white mb-8 text-lg text-primary-foreground/80">
+              <p className="text-base text-white mb-8  text-lg text-primary-foreground/80">
                 EduSustenta é uma plataforma educacional aberta e gamificada, focada no acesso democrático e conhecimento.
               </p>
 
               <Button
                 asChild
-                className="
-                          rounded-lg
-                          bg-gradient-to-r from-emerald-400 to-green-200
-                          px-6 py-3
-                          text-sm font-semibold uppercase tracking-wide text-zinc-950
-                          transition-all duration-300 ease-out
-                          hover:from-emerald-400 hover:to-green-50
-                          hover:shadow-xl hover:shadow-emerald-400/60
-                          hover:scale-[1.03]
-                        ">
+                className="font-display rounded-lg bg-gradient-to-r from-emerald-400 to-green-200 px-6 py-3 text-sm font-bold uppercase tracking-widest text-zinc-950 transition-all duration-300 hover:from-emerald-300 hover:to-white hover:shadow-[0_0_20px_rgba(52,211,153,0.5)] hover:scale-105"
+              >
 
-                <Link to="/register">CRIAR CONTA</Link>
+                <Link to="/register">FAÇA PARTE</Link>
               </Button>
             </div>
 
             {/* Right Illustration */}
             <div className="w-full max-w-md lg:max-w-lg">
               <img
-                src={heroIllustration}
-                alt="Pessoas aprendendo juntas na natureza"
-                className="h-auto w-full"
-              />
+              src={heroIllustration}
+              alt="Pessoas aprendendo juntas na natureza"
+              className="w-full scale-150 object-contain -translate-x-10 translate-y-5"
+            />
+
             </div>
           </div>
         </div>
@@ -173,30 +159,27 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 lg:py-20 bg-[#f6fff0]">
-        <div className="mx-auto max-w-[1200px] px-4">
-          <h2 className="font-display mb-12 text-center text-2xl font-bold text-[#012030] sm:text-3xl">
-  Aprender também pode ser uma conquista.
-</h2>
+      <section className="py-20 bg-[#f6fff0] ">
+        <div className="mx-auto max-w-[1200px]  px-5">
+          <h2 className="font-display mb-16 text-center text-3xl font-bold text-[#012030] lg:text-4xl">
+            Aprender também pode ser uma conquista.
+          </h2>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {featureCards.map((feature) => (
               <Card
                 key={feature.title}
-                className="overflow-hidden rounded-2xl border-0 bg-[#012030] text-primary-foreground shadow-lg"
+                className="group relative overflow-hidden border-0 bg-[#012030] p-4 text-white shadow-xl transition-all hover:scale-[1.02]"
               >
-                <CardContent className="flex h-full flex-col justify-between p-6">
-                  <div>
-                    <h3 className="font-display mb-2 text-lg text-white font-bold">{feature.title}</h3>
-                    <p className="text-sm text-white text-primary-foreground/80">{feature.description}</p>
-                  </div>
-                  <div className="mt-4 flex justify-end">
-                    <img
-                      src={feature.image}
-                      alt={feature.title}
-                      className="h-20 w-20 object-contain"
-                    />
-                  </div>
+                <CardContent className="flex h-64 flex-col justify-start p-6">
+                  <h3 className="font-display text-white mb-4 text-xl font-bold text-emerald-400">{feature.title}</h3>
+                  <p className="text-white text-lg">{feature.description}</p>
+                  
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="absolute -bottom-4 -right-4 h-32 w-32 object-contain opacity-20 transition-all group-hover:scale-110 group-hover:opacity-100 lg:opacity-40"
+                  />
                 </CardContent>
               </Card>
             ))}
@@ -205,7 +188,7 @@ export default function Landing() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 lg:py-20 bg-[#f6fff0]">
+      <section className="py-16 lg:py-12 bg-[#f6fff0]">
         <div className="mx-auto max-w-[1200px] px-4">
           <h2 className="font-display mb-12 text-center text-2xl font-bold text-[#012030] sm:text-3xl">
             Como funciona o EduSustenta?
@@ -225,7 +208,7 @@ export default function Landing() {
                       className="h-10 w-10 object-contain"
                     />
                   </div>
-                  <p className="text-sm font-semibold text-foreground">{step.title}</p>
+                  <p className="text-base font-semibold text-foreground">{step.title}</p>
                 </CardContent>
               </Card>
             ))}
@@ -234,7 +217,7 @@ export default function Landing() {
       </section>
 
       {/* Teacher CTA Section */}
-      <section className="py-16 lg:py-20 bg-[#f6fff0]">
+      <section className="py-16 lg:py-12 bg-[#f6fff0]">
         <div className="mx-auto max-w-[1200px] px-4">
           <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center">
             {/* Students Illustration */}
@@ -251,23 +234,14 @@ export default function Landing() {
               <h2 className="font-display mb-4 text-2xl font-bold text-[#012030] sm:text-3xl">
                 Você é professor?
               </h2>
-              <p className="mb-6 max-w-md text-[#012030]">
+              <p className="mb-6 text-lg max-w-md text-[#012030]">
                 Crie trilhas de aprendizagem, compartilhe conhecimento e impacte alunos de todos país
               </p>
               <Button
                 asChild
-                className="
-                          rounded-lg
-                          bg-gradient-to-r from-emerald-400 to-green-200
-                          px-6 py-3
-                          text-sm font-semibold uppercase tracking-wide text-zinc-950
-                          transition-all duration-300 ease-out
-                          hover:from-emerald-400 hover:to-green-50
-                          hover:shadow-xl hover:shadow-emerald-400/60
-                          hover:scale-[1.03]
-                        ">
-              
-                <Link to="/register">Criar Trilha</Link>
+                className="font-display rounded-lg bg-gradient-to-r from-emerald-400 to-green-200 px-6 py-3 text-sm font-bold uppercase tracking-widest text-zinc-950 transition-all duration-300 hover:from-emerald-300 hover:to-white hover:shadow-[0_0_20px_rgba(52,211,153,0.5)] hover:scale-105"
+              >
+                <Link to="/register">COMPARTILHAR CONHECIMENTO</Link>
               </Button>
             </div>
           </div>
@@ -275,7 +249,13 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary py-12 bg-[#012030]">
+      <footer className="bg-primary py-12 bg-[#012030]" style={{
+    background: `
+      radial-gradient(circle at 25% 35%, rgba(69,196,176,0.35) 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, rgba(154,235,163,0.25) 0%, transparent 45%),
+      linear-gradient(180deg, #012030 0%, #012030 100%)
+    `
+  }}>
         <div className="mx-auto max-w-[1200px] px-4">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <Link to="/">  
