@@ -1,0 +1,179 @@
+import { useLocation, Link } from 'react-router-dom';
+import {
+  Home,
+  BookOpen,
+  School,
+  Users,
+  Compass,
+  GraduationCap,
+  Settings,
+  LogOut,
+} from 'lucide-react';
+import { useAuth, UserRole } from '@/contexts/AuthContext';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
+interface NavItem {
+  title: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  roles: UserRole[];
+}
+
+const navItems: NavItem[] = [
+  {
+    title: 'Dashboard',
+    href: '/home',
+    icon: Home,
+    roles: ['aluno', 'professor', 'gestor'],
+  },
+  {
+    title: 'Explorar Trilhas',
+    href: '/explore',
+    icon: Compass,
+    roles: ['aluno'],
+  },
+  {
+    title: 'Minhas Trilhas',
+    href: '/teacher-trails',
+    icon: BookOpen,
+    roles: ['professor'],
+  },
+  {
+    title: 'Meus Alunos',
+    href: '/students',
+    icon: GraduationCap,
+    roles: ['professor'],
+  },
+  {
+    title: 'Escolas',
+    href: '/manager-schools',
+    icon: School,
+    roles: ['gestor'],
+  },
+  {
+    title: 'Professores',
+    href: '/professors',
+    icon: Users,
+    roles: ['gestor'],
+  },
+];
+
+interface AppSidebarProps {
+  isCollapsed?: boolean;
+}
+
+export function AppSidebar({ isCollapsed = false }: AppSidebarProps) {
+  const location = useLocation();
+  const { user, logout } = useAuth();
+
+  const filteredItems = navItems.filter(
+    (item) => user && item.roles.includes(user.role)
+  );
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  return (
+    <aside
+      className={cn(
+        'flex h-screen flex-col bg-sidebar text-sidebar-foreground transition-all duration-300',
+        isCollapsed ? 'w-16' : 'w-64'
+      )}
+    >
+      {/* Logo */}
+      <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-4">
+        {!isCollapsed && (
+          <span className="text-lg font-bold text-sidebar-foreground">
+            {'</'}<span className="text-accent">Edu</span>Sustenta{'>'}
+          </span>
+        )}
+        {isCollapsed && (
+          <span className="text-lg font-bold text-sidebar-foreground mx-auto">
+            {'</'}
+          </span>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 space-y-1 p-3">
+        {filteredItems.map((item) => {
+          const isActive = location.pathname === item.href;
+          return (
+            <Link
+              key={item.href}
+              to={item.href}
+              className={cn(
+                'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all',
+                isActive
+                  ? 'bg-sidebar-primary text-sidebar-primary-foreground'
+                  : 'text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground'
+              )}
+            >
+              <item.icon className="h-5 w-5 flex-shrink-0" />
+              {!isCollapsed && <span>{item.title}</span>}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* User Section */}
+      <div className="border-t border-sidebar-border p-3">
+        <Link
+          to="/profile"
+          className={cn(
+            'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all',
+            location.pathname === '/profile'
+              ? 'bg-sidebar-primary text-sidebar-primary-foreground'
+              : 'text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground'
+          )}
+        >
+          <Settings className="h-5 w-5 flex-shrink-0" />
+          {!isCollapsed && <span>Configurações</span>}
+        </Link>
+
+        <div className="mt-3 flex items-center gap-3 rounded-xl bg-sidebar-accent px-3 py-2.5">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={user?.avatar} />
+            <AvatarFallback className="bg-accent text-accent-foreground text-xs">
+              {user?.name ? getInitials(user.name) : 'U'}
+            </AvatarFallback>
+          </Avatar>
+          {!isCollapsed && (
+            <div className="flex-1 overflow-hidden">
+              <p className="truncate text-sm font-medium text-sidebar-foreground">
+                {user?.name}
+              </p>
+              <p className="truncate text-xs text-sidebar-foreground/60">
+                {user?.role === 'aluno'
+                  ? 'Estudante'
+                  : user?.role === 'professor'
+                  ? 'Professor(a)'
+                  : 'Gestor(a)'}
+              </p>
+            </div>
+          )}
+        </div>
+
+        <Button
+          variant="ghost"
+          onClick={logout}
+          className={cn(
+            'mt-2 w-full justify-start gap-3 text-sidebar-foreground/80 hover:bg-destructive/10 hover:text-destructive',
+            isCollapsed && 'justify-center px-0'
+          )}
+        >
+          <LogOut className="h-5 w-5" />
+          {!isCollapsed && <span>Sair</span>}
+        </Button>
+      </div>
+    </aside>
+  );
+}
