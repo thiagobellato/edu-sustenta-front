@@ -96,19 +96,19 @@ export default function Landing() {
   
 
           <nav className="hidden items-center gap-12 md:flex hover:shadow-xl hover:shadow-emerald-400/60">
-            <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">
+            <Link to="/" className="text-lg font-medium text-white hover:text-emerald-200">
               Home
             </Link>
-            <Link to="/about" className="text-sm font-medium text-foreground hover:text-accent">
+            <Link to="/about" className="text-lg font-medium text-white hover:text-emerald-200">
               Sobre
             </Link>
-            <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">
+            <Link to="/" className="text-lg font-medium text-white hover:text-emerald-200">
               Contato
             </Link>
           </nav>
 
 
-          <Link to="/login" className="text-sm font-medium text-emerald-400 text-accent hover:underline">
+          <Link to="/login" className="text-xl font-medium text-emerald-400 text-accent hover:underline">
             Login
           </Link>
         </div>
@@ -225,7 +225,7 @@ export default function Landing() {
                       className="h-10 w-10 object-contain"
                     />
                   </div>
-                  <p className="text-sm font-semibold text-foreground">{step.title}</p>
+                  <p className="text-lg font-semibold text-foreground">{step.title}</p>
                 </CardContent>
               </Card>
             ))}
