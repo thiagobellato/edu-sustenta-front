@@ -55,7 +55,7 @@ export default function TeacherTrails() {
   if (isLoading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#012030]" />
       </div>
     );
   }
@@ -64,36 +64,38 @@ export default function TeacherTrails() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Minhas Trilhas</h1>
-          <p className="text-muted-foreground">
+          <h1 className="font-display text-3xl font-bold text-[#012030]">Minhas Trilhas</h1>
+          <p className="text-[#012030]/70">
             Crie e gerencie suas trilhas de aprendizado
           </p>
         </div>
-        <Button className="gradient-primary">
-          <Plus className="mr-2 h-4 w-4" />
-          Nova Trilha
+        <Button asChild className="bg-[#012030] text-white hover:bg-[#012030]/90">
+          <Link to="/teacher-trails/new">
+            <Plus className="mr-2 h-4 w-4" />
+            Nova Trilha
+          </Link>
         </Button>
       </div>
 
       {/* Search */}
       <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#012030]/50" />
         <Input
           placeholder="Buscar trilhas..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-10"
+          className="pl-10 border-[#012030]/10 focus:border-[#012030]"
         />
       </div>
 
       {/* Tabs */}
       <Tabs defaultValue="published" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="published" className="gap-2">
+        <TabsList className="bg-secondary/50 border border-[#012030]/5">
+          <TabsTrigger value="published" className="gap-2 data-[state=active]:bg-[#012030] data-[state=active]:text-white">
             <CheckCircle className="h-4 w-4" />
             Publicadas ({publishedTrails.length})
           </TabsTrigger>
-          <TabsTrigger value="drafts" className="gap-2">
+          <TabsTrigger value="drafts" className="gap-2 data-[state=active]:bg-[#012030] data-[state=active]:text-white">
             <FileText className="h-4 w-4" />
             Rascunhos ({draftTrails.length})
           </TabsTrigger>
@@ -114,13 +116,13 @@ export default function TeacherTrails() {
 function TrailGrid({ trails }: { trails: Trail[] }) {
   if (trails.length === 0) {
     return (
-      <Card>
+      <Card className="border-dashed">
         <CardContent className="flex flex-col items-center justify-center py-16">
           <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary">
-            <BookOpen className="h-8 w-8 text-muted-foreground" />
+            <BookOpen className="h-8 w-8 text-[#012030]/40" />
           </div>
-          <h3 className="mb-2 text-xl font-semibold">Nenhuma trilha encontrada</h3>
-          <p className="text-muted-foreground">
+          <h3 className="mb-2 text-xl font-semibold text-[#012030]">Nenhuma trilha encontrada</h3>
+          <p className="text-[#012030]/60">
             Comece criando sua primeira trilha de aprendizado
           </p>
         </CardContent>
@@ -133,38 +135,43 @@ function TrailGrid({ trails }: { trails: Trail[] }) {
       {trails.map((trail) => (
         <Card
           key={trail.id}
-          className="group overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg"
+          className="group overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg border-[#012030]/10"
         >
           {/* Cover Image */}
-          <div className="aspect-video gradient-primary relative overflow-hidden">
+          <div className="aspect-video relative overflow-hidden bg-[#012030]">
             {trail.cover_image ? (
               <img
                 src={trail.cover_image}
                 alt={trail.title}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition-transform group-hover:scale-105"
               />
             ) : (
-              <div className="flex h-full items-center justify-center">
-                <BookOpen className="h-12 w-12 text-primary-foreground/50" />
+              <div className="flex h-full items-center justify-center" style={{
+                background: `radial-gradient(circle at 50% 50%, rgba(69,196,176,0.2) 0%, transparent 100%), #012030`
+              }}>
+                <BookOpen className="h-12 w-12 text-white/20" />
               </div>
             )}
             <Badge
-              variant={trail.status === 'published' ? 'default' : 'secondary'}
-              className="absolute right-3 top-3"
+              className={`absolute right-3 top-3 border-none ${
+                trail.status === 'published' 
+                ? 'bg-emerald-500 text-white' 
+                : 'bg-amber-500 text-white'
+              }`}
             >
               {trail.status === 'published' ? 'Publicada' : 'Rascunho'}
             </Badge>
           </div>
 
           <CardHeader>
-            <CardTitle className="line-clamp-1">{trail.title}</CardTitle>
-            <CardDescription className="line-clamp-2">
+            <CardTitle className="line-clamp-1 font-bold text-[#012030]">{trail.title}</CardTitle>
+            <CardDescription className="line-clamp-2 text-[#012030]/70">
               {trail.description}
             </CardDescription>
           </CardHeader>
 
           <CardContent>
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <div className="flex items-center justify-between text-sm text-[#012030]/60">
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
                 <span>
@@ -172,12 +179,12 @@ function TrailGrid({ trails }: { trails: Trail[] }) {
                 </span>
               </div>
               {trail.total_students !== undefined && (
-                <span>{trail.total_students} alunos</span>
+                <span className="font-medium text-[#012030]">{trail.total_students} alunos</span>
               )}
             </div>
             <div className="mt-4 flex gap-2">
-              <Badge variant="outline">{trail.category}</Badge>
-              <Badge variant="outline">{trail.difficulty}</Badge>
+              <Badge variant="outline" className="border-[#012030]/20 text-[#012030]">{trail.category}</Badge>
+              <Badge variant="outline" className="border-[#012030]/20 text-[#012030]">{trail.difficulty}</Badge>
             </div>
           </CardContent>
         </Card>

@@ -53,12 +53,11 @@ export default function Home() {
   if (isLoading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-accent" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#012030]" />
       </div>
     );
   }
 
-  // Render based on user role
   if (user?.role === 'gestor') {
     return <GestorDashboard stats={stats} />;
   }
@@ -76,12 +75,12 @@ function GestorDashboard({ stats }: { stats?: DashboardStats }) {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Painel do Gestor</h1>
-          <p className="text-muted-foreground">
+          <h1 className="font-display text-3xl font-bold text-[#012030]">Painel do Gestor</h1>
+          <p className="text-[#012030]">
             Gerencie suas escolas e acompanhe o desempenho
           </p>
         </div>
-        <Button asChild className="gradient-primary text-primary-foreground">
+        <Button asChild className="bg-[#012030] text-white hover:bg-[#012030]/90">
           <Link to="/manager-schools">
             <Plus className="mr-2 h-4 w-4" />
             Nova Escola
@@ -89,7 +88,6 @@ function GestorDashboard({ stats }: { stats?: DashboardStats }) {
         </Button>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Total de Escolas"
@@ -116,11 +114,10 @@ function GestorDashboard({ stats }: { stats?: DashboardStats }) {
         />
       </div>
 
-      {/* Recent Activities */}
       <Card>
         <CardHeader>
-          <CardTitle>Atividades Recentes</CardTitle>
-          <CardDescription>Últimas ações nas suas escolas</CardDescription>
+          <CardTitle className="text-[#012030]">Atividades Recentes</CardTitle>
+          <CardDescription className="text-[#012030]/70">Últimas ações nas suas escolas</CardDescription>
         </CardHeader>
         <CardContent>
           {stats?.atividades_recentes && stats.atividades_recentes.length > 0 ? (
@@ -131,11 +128,11 @@ function GestorDashboard({ stats }: { stats?: DashboardStats }) {
                   className="flex items-center gap-4 rounded-lg border p-3"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
-                    <TrendingUp className="h-5 w-5 text-accent" />
+                    <TrendingUp className="h-5 w-5 text-[#012030]" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium">{activity.title}</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="font-medium text-[#012030]">{activity.title}</p>
+                    <p className="text-sm text-[#012030]/60">
                       {new Date(activity.created_at).toLocaleDateString('pt-BR')}
                     </p>
                   </div>
@@ -143,7 +140,7 @@ function GestorDashboard({ stats }: { stats?: DashboardStats }) {
               ))}
             </div>
           ) : (
-            <p className="text-center text-muted-foreground">
+            <p className="text-center text-[#012030]/60">
               Nenhuma atividade recente
             </p>
           )}
@@ -161,12 +158,12 @@ function ProfessorDashboard({ stats }: { stats?: DashboardStats }) {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Painel do Professor</h1>
-          <p className="text-muted-foreground">
+          <h1 className="font-display text-3xl font-bold text-[#012030]">Painel do Professor</h1>
+          <p className="text-[#012030]">
             Gerencie suas trilhas e acompanhe seus alunos
           </p>
         </div>
-        <Button asChild className="gradient-primary text-primary-foreground">
+        <Button asChild className="bg-[#012030] text-white hover:bg-[#012030]/90">
           <Link to="/teacher-trails">
             <Plus className="mr-2 h-4 w-4" />
             Nova Trilha
@@ -192,45 +189,25 @@ function ProfessorDashboard({ stats }: { stats?: DashboardStats }) {
         </Alert>
       )}
 
-      {/* Stats Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatsCard
-          title="Escolas Vinculadas"
-          value={stats?.escolas_vinculadas ?? 0}
-          icon={School}
-        />
-        <StatsCard
-          title="Meus Alunos"
-          value={stats?.meus_alunos ?? 0}
-          icon={Users}
-        />
-        <StatsCard
-          title="Minhas Trilhas"
-          value={stats?.minhas_trilhas ?? 0}
-          icon={BookOpen}
-        />
-        <StatsCard
-          title="Trilhas Ativas"
-          value={stats?.trilhas_em_andamento ?? 0}
-          icon={TrendingUp}
-        />
+        <StatsCard title="Escolas Vinculadas" value={stats?.escolas_vinculadas ?? 0} icon={School} />
+        <StatsCard title="Meus Alunos" value={stats?.meus_alunos ?? 0} icon={Users} />
+        <StatsCard title="Minhas Trilhas" value={stats?.minhas_trilhas ?? 0} icon={BookOpen} />
+        <StatsCard title="Trilhas Ativas" value={stats?.trilhas_em_andamento ?? 0} icon={TrendingUp} />
       </div>
 
-      {/* Quick Actions */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="group cursor-pointer transition-all hover:shadow-lg">
           <Link to="/teacher-trails">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-primary">
-                <BookOpen className="h-6 w-6 text-primary-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#012030]">
+                <BookOpen className="h-6 w-6 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold">Gerenciar Trilhas</h3>
-                <p className="text-sm text-muted-foreground">
-                  Crie e edite suas trilhas de aprendizado
-                </p>
+                <h3 className="font-semibold text-[#012030]">Gerenciar Trilhas</h3>
+                <p className="text-sm text-[#012030]/70">Crie e edite suas trilhas de aprendizado</p>
               </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-5 w-5 text-[#012030]/40 transition-transform group-hover:translate-x-1" />
             </CardContent>
           </Link>
         </Card>
@@ -238,16 +215,14 @@ function ProfessorDashboard({ stats }: { stats?: DashboardStats }) {
         <Card className="group cursor-pointer transition-all hover:shadow-lg">
           <Link to="/students">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent">
-                <Users className="h-6 w-6 text-accent-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary">
+                <Users className="h-6 w-6 text-[#012030]" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold">Ver Alunos</h3>
-                <p className="text-sm text-muted-foreground">
-                  Acompanhe o progresso dos seus alunos
-                </p>
+                <h3 className="font-semibold text-[#012030]">Ver Alunos</h3>
+                <p className="text-sm text-[#012030]/70">Acompanhe o progresso dos seus alunos</p>
               </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-5 w-5 text-[#012030]/40 transition-transform group-hover:translate-x-1" />
             </CardContent>
           </Link>
         </Card>
@@ -264,12 +239,10 @@ function AlunoDashboard({ stats }: { stats?: DashboardStats }) {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Meu Painel</h1>
-          <p className="text-muted-foreground">
-            Continue sua jornada de aprendizado
-          </p>
+          <h1 className="font-display text-3xl font-bold text-[#012030]">Meu Painel</h1>
+          <p className="text-[#012030]/70">Continue sua jornada de aprendizado</p>
         </div>
-        <Button asChild className="gradient-primary text-primary-foreground">
+        <Button asChild className="bg-[#012030] text-white hover:bg-[#012030]/90">
           <Link to="/explore">
             <Target className="mr-2 h-4 w-4" />
             Explorar Trilhas
@@ -277,17 +250,22 @@ function AlunoDashboard({ stats }: { stats?: DashboardStats }) {
         </Button>
       </div>
 
-      {/* Level Card */}
-      <Card className="overflow-hidden bg-primary">
+      <Card className="overflow-hidden" style={{
+    background: `
+      radial-gradient(circle at 25% 35%, rgba(69,196,176,0.35) 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, rgba(154,235,163,0.25) 0%, transparent 45%),
+      linear-gradient(180deg, #012030 0%, #012030 100%)
+    `
+  }}>
         <CardContent className="p-6">
-          <div className="flex flex-col gap-4 text-primary-foreground md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-4 text-white md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-foreground/20">
-                <Trophy className="h-8 w-8 text-primary-foreground" />
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10">
+                <Trophy className="h-8 w-8 text-white" />
               </div>
               <div>
-                <p className="text-sm text-primary-foreground/80">Seu nível</p>
-                <p className="text-3xl font-bold">{stats?.nivel ?? 1}</p>
+                <p className="text-sm text-white/80">Seu nível</p>
+                <p className="font-display text-3xl font-bold">{stats?.nivel ?? 1}</p>
               </div>
             </div>
             <div className="flex-1 max-w-md">
@@ -295,66 +273,35 @@ function AlunoDashboard({ stats }: { stats?: DashboardStats }) {
                 <span>{stats?.pontos ?? 0} pontos</span>
                 <span>Próximo nível</span>
               </div>
-              <Progress value={progressPercent} className="h-3 bg-primary-foreground/20" />
+              <Progress value={progressPercent} className="h-3 bg-white/20" />
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Stats Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <StatsCard
-          title="Trilhas em Andamento"
-          value={stats?.trilhas_em_andamento ?? 0}
-          icon={BookOpen}
-        />
-        <StatsCard
-          title="Trilhas Concluídas"
-          value={stats?.trilhas_concluidas ?? 0}
-          icon={Trophy}
-        />
-        <StatsCard
-          title="Total de Pontos"
-          value={stats?.pontos ?? 0}
-          icon={TrendingUp}
-        />
+        <StatsCard title="Trilhas em Andamento" value={stats?.trilhas_em_andamento ?? 0} icon={BookOpen} />
+        <StatsCard title="Trilhas Concluídas" value={stats?.trilhas_concluidas ?? 0} icon={Trophy} />
+        <StatsCard title="Total de Pontos" value={stats?.pontos ?? 0} icon={TrendingUp} />
       </div>
 
-      {/* Quick Actions */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="group cursor-pointer transition-all hover:shadow-lg">
           <Link to="/explore">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-primary">
-                <Target className="h-6 w-6 text-primary-foreground" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#012030]">
+                <Target className="h-6 w-6 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold">Explorar Trilhas</h3>
-                <p className="text-sm text-muted-foreground">
-                  Descubra novas trilhas de aprendizado
-                </p>
+                <h3 className="font-semibold text-[#012030]">Explorar Trilhas</h3>
+                <p className="text-sm text-[#012030]/70">Descubra novas trilhas de aprendizado</p>
               </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-5 w-5 text-[#012030]/40 transition-transform group-hover:translate-x-1" />
             </CardContent>
           </Link>
         </Card>
 
-        <Card className="group cursor-pointer transition-all hover:shadow-lg">
-          <Link to="/profile">
-            <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent">
-                <GraduationCap className="h-6 w-6 text-accent-foreground" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold">Tornar-se Professor</h3>
-                <p className="text-sm text-muted-foreground">
-                  Use um token de convite para virar professor
-                </p>
-              </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
-            </CardContent>
-          </Link>
-        </Card>
+
       </div>
     </div>
   );
@@ -377,15 +324,15 @@ function StatsCard({
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary">
-            <Icon className="h-6 w-6 text-accent" />
+            <Icon className="h-6 w-6 text-[#012030]" />
           </div>
           {trend && (
-            <span className="text-xs text-accent font-medium">{trend}</span>
+            <span className="text-xs text-[#012030] font-medium">{trend}</span>
           )}
         </div>
         <div className="mt-4">
-          <p className="text-3xl font-bold text-foreground">{value}</p>
-          <p className="text-sm text-muted-foreground">{title}</p>
+          <p className="text-3xl font-bold text-[#012030]">{value}</p>
+          <p className="text-sm text-[#012030]/70">{title}</p>
         </div>
       </CardContent>
     </Card>

@@ -10,9 +10,10 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
-import logo from '@/assets/LOGO.svg';
 
-import heroIllustration from '@/assets/hero-illustration.png';
+// Importações de assets mantidas
+// import logo from '@/assets/LOGO.svg';
+// import heroIllustration from '@/assets/hero-illustration.png';
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -58,18 +59,18 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen bg-[#f6fff0]" style={{
-    background: `
-      radial-gradient(circle at 25% 35%, rgba(69,196,176,0.35) 0%, transparent 40%),
-      radial-gradient(circle at 70% 60%, rgba(154,235,163,0.25) 0%, transparent 45%),
-      linear-gradient(180deg, #012030 0%, #012030 100%)
-    `
-  }}>
-      {/* Left Side - Form */}
-      <div className=" text-[#012030]  flex flex-1 items-center justify-center p-8">
+      background: `
+        radial-gradient(circle at 25% 35%, rgba(69,196,176,0.35) 0%, transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(154,235,163,0.25) 0%, transparent 45%),
+        linear-gradient(180deg, #012030 0%, #012030 100%)
+      `
+    }}>
+      <div className="text-[#012030] flex flex-1 items-center justify-center p-8">
         <div className="w-full max-w-md -translate-y-12 space-y-6">
 
           <div className="flex flex-col items-center text-center">
-  <h2 className="text-white font-display mb-4 text-3xl font-bold">Bem-vindo de volta!</h2></div>
+            <h2 className="text-white font-display mb-4 text-3xl font-bold">Bem-vindo de volta!</h2>
+          </div>
           
           <Card className="border-0 shadow-xl">
             <CardHeader className="space-y-1">
@@ -95,7 +96,15 @@ export default function Login() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password">Senha</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="password">Senha</Label>
+                    <Link 
+                      to="/forgot-password" 
+                      className="text-xs text-muted-foreground hover:text-[#012030] hover:underline transition-colors"
+                    >
+                      Esqueceu a senha?
+                    </Link>
+                  </div>
                   <div className="relative">
                     <Input
                       id="password"
@@ -124,16 +133,16 @@ export default function Login() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="font-display
-                          rounded-lg
-                          bg-gradient-to-r from-emerald-400 to-green-200
-                          px-6 py-3
-                          text-sm font-semibold uppercase tracking-wide text-zinc-950
-                          transition-all duration-300 ease-out
-                          hover:from-emerald-400 hover:to-green-50
-                          hover:shadow-xl hover:shadow-emerald-400/60
-                          hover:scale-[1.03]
-                        "
+                  className="w-full font-display
+                            rounded-lg
+                            bg-gradient-to-r from-emerald-400 to-green-200
+                            px-6 py-3
+                            text-sm font-semibold uppercase tracking-wide text-zinc-950
+                            transition-all duration-300 ease-out
+                            hover:from-emerald-400 hover:to-green-50
+                            hover:shadow-xl hover:shadow-emerald-400/60
+                            hover:scale-[1.03]
+                          "
                 >
                   {isLoading ? (
                     <>
@@ -148,13 +157,12 @@ export default function Login() {
 
               <div className="mt-6 text-center text-sm text-muted-foreground">
                 Não tem uma conta?{' '}
-                <Link to="/register" className="font-display text-[#012030] hover:underline">
+                <Link to="/register" className="font-display text-[#012030] hover:underline font-semibold">
                   Cadastre-se
                 </Link>
               </div>
             </CardContent>
           </Card>
-          
         </div>
       </div>
     </div>

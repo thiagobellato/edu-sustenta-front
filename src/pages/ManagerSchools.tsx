@@ -116,7 +116,7 @@ export default function ManagerSchools() {
   if (isLoading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#012030]" />
       </div>
     );
   }
@@ -125,74 +125,71 @@ export default function ManagerSchools() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Gestão de Escolas</h1>
-          <p className="text-muted-foreground">
-            Gerencie suas escolas e tokens de convite
+          <h1 className="font-display text-3xl font-bold text-[#012030]">Gestão de Escolas</h1>
+          <p className="text-[#012030]/70">
+            Gerencie suas instituições e tokens de acesso
           </p>
         </div>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="gradient-primary">
+            <Button className="bg-[#012030] text-white hover:bg-[#012030]/90">
               <Plus className="mr-2 h-4 w-4" />
               Nova Escola
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Criar Nova Escola</DialogTitle>
+              <DialogTitle className="font-display text-2xl font-bold text-[#012030]">Criar Escola</DialogTitle>
               <DialogDescription>
-                Preencha os dados para cadastrar uma nova escola
+                Cadastre uma nova unidade escolar no sistema
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Nome da Escola</Label>
+                <Label htmlFor="name" className="text-[#012030]/80">Nome da Escola</Label>
                 <Input
                   id="name"
-                  placeholder="Ex: Escola Municipal Verde Vida"
+                  placeholder="Ex: Unidade Central"
                   {...register('name')}
-                  className={errors.name ? 'border-destructive' : ''}
+                  className={`border-[#012030]/10 focus:border-[#012030] ${errors.name ? 'border-destructive' : ''}`}
                 />
                 {errors.name && (
-                  <p className="text-sm text-destructive">{errors.name.message}</p>
+                  <p className="text-sm font-medium text-destructive">{errors.name.message}</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="cnpj">CNPJ</Label>
+                <Label htmlFor="cnpj" className="text-[#012030]/80">CNPJ</Label>
                 <Input
                   id="cnpj"
                   placeholder="00.000.000/0001-00"
                   {...register('cnpj')}
-                  className={errors.cnpj ? 'border-destructive' : ''}
+                  className={`border-[#012030]/10 focus:border-[#012030] ${errors.cnpj ? 'border-destructive' : ''}`}
                 />
                 {errors.cnpj && (
-                  <p className="text-sm text-destructive">{errors.cnpj.message}</p>
+                  <p className="text-sm font-medium text-destructive">{errors.cnpj.message}</p>
                 )}
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-6">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setIsDialogOpen(false)}
-                  className="flex-1"
+                  className="flex-1 border-[#012030]/10 text-[#012030]"
                 >
                   Cancelar
                 </Button>
                 <Button
                   type="submit"
                   disabled={createMutation.isPending}
-                  className="flex-1 gradient-primary"
+                  className="flex-1 bg-[#012030] text-white hover:bg-[#012030]/90"
                 >
                   {createMutation.isPending ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Criando...
-                    </>
+                    <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
-                    'Criar Escola'
+                    'Salvar Escola'
                   )}
                 </Button>
               </div>
@@ -203,67 +200,71 @@ export default function ManagerSchools() {
 
       {/* Schools Grid */}
       {schools.length === 0 ? (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-16">
-            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary">
-              <School className="h-8 w-8 text-muted-foreground" />
+        <Card className="border-dashed">
+          <CardContent className="flex flex-col items-center justify-center py-20">
+            <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-secondary">
+              <School className="h-10 w-10 text-[#012030]/20" />
             </div>
-            <h3 className="mb-2 text-xl font-semibold">Nenhuma escola cadastrada</h3>
-            <p className="mb-4 text-muted-foreground">
-              Crie sua primeira escola para começar a gerenciar
+            <h3 className="text-xl font-bold text-[#012030]">Nenhuma escola por aqui</h3>
+            <p className="mb-6 text-[#012030]/60 max-w-[300px] text-center">
+              Você ainda não cadastrou nenhuma unidade de ensino.
             </p>
-            <Button onClick={() => setIsDialogOpen(true)} className="gradient-primary">
+            <Button onClick={() => setIsDialogOpen(true)} className="bg-[#012030] text-white">
               <Plus className="mr-2 h-4 w-4" />
-              Criar Escola
+              Criar Primeira Escola
             </Button>
           </CardContent>
         </Card>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {schools.map((school) => (
-            <Card key={school.id} className="overflow-hidden">
-              <div className="h-2 gradient-primary" />
+            <Card key={school.id} className="group overflow-hidden border-[#012030]/10 transition-all hover:shadow-md">
+              <div className="h-1.5 bg-[#012030]/10 group-hover:bg-[#012030] transition-colors" />
               <CardHeader>
                 <div className="flex items-start gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary">
-                    <School className="h-6 w-6 text-primary" />
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary transition-colors group-hover:bg-[#012030]/5">
+                    <School className="h-6 w-6 text-[#012030]" />
                   </div>
-                  <div className="flex-1">
-                    <CardTitle className="text-lg">{school.name}</CardTitle>
-                    <CardDescription>{school.cnpj}</CardDescription>
+                  <div className="flex-1 min-w-0">
+                    <CardTitle className="text-lg font-bold text-[#012030] truncate">{school.name}</CardTitle>
+                    <CardDescription className="font-mono text-[11px] uppercase tracking-tighter">CNPJ: {school.cnpj}</CardDescription>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {/* Stats */}
-                <div className="flex gap-4">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Users className="h-4 w-4" />
-                    <span>{school.total_professores ?? 0} professores</span>
+              <CardContent className="space-y-6">
+                {/* Stats Row */}
+                <div className="flex gap-6 border-y border-[#012030]/5 py-4">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-4 w-4 text-[#012030]/40" />
+                    <div className="flex flex-col">
+                      <span className="text-sm font-bold text-[#012030]">{school.total_professores ?? 0}</span>
+                      <span className="text-[10px] uppercase font-bold text-[#012030]/40 tracking-wider">Professores</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <BookOpen className="h-4 w-4" />
-                    <span>{school.total_alunos ?? 0} alunos</span>
+                  <div className="flex items-center gap-2">
+                    <BookOpen className="h-4 w-4 text-[#012030]/40" />
+                    <div className="flex flex-col">
+                      <span className="text-sm font-bold text-[#012030]">{school.total_alunos ?? 0}</span>
+                      <span className="text-[10px] uppercase font-bold text-[#012030]/40 tracking-wider">Alunos</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Invite Token */}
-                <div className="rounded-lg border bg-muted/50 p-3">
-                  <p className="mb-2 text-xs font-medium text-muted-foreground">
-                    Token de Convite
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <code className="flex-1 truncate rounded bg-background px-2 py-1 text-xs">
+                {/* Invite Token Area */}
+                <div className="space-y-2">
+                  <Label className="text-[10px] uppercase font-bold text-[#012030]/40 tracking-widest">Token de Convite</Label>
+                  <div className="flex items-center gap-2 rounded-xl bg-secondary/50 border border-[#012030]/5 p-2 transition-colors hover:bg-secondary">
+                    <code className="flex-1 truncate px-2 font-mono text-xs font-semibold text-[#012030]/80">
                       {school.invite_token}
                     </code>
                     <Button
-                      size="sm"
-                      variant="outline"
+                      size="icon"
+                      variant="ghost"
                       onClick={() => copyToken(school.id, school.invite_token)}
-                      className="shrink-0"
+                      className="h-8 w-8 text-[#012030] hover:bg-[#012030]/10"
                     >
                       {copiedToken === school.id ? (
-                        <CheckCircle className="h-4 w-4 text-primary" />
+                        <CheckCircle className="h-4 w-4 text-emerald-500" />
                       ) : (
                         <Copy className="h-4 w-4" />
                       )}

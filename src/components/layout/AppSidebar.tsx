@@ -13,6 +13,7 @@ import { useAuth, UserRole } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import logo from '@/assets/LOGO.svg';
 
 interface NavItem {
   title: string;
@@ -86,14 +87,24 @@ export function AppSidebar({ isCollapsed = false }: AppSidebarProps) {
       className={cn(
         'flex h-screen flex-col bg-sidebar text-sidebar-foreground transition-all duration-300',
         isCollapsed ? 'w-16' : 'w-64'
-      )}
+      )} style={{
+    background: `
+      radial-gradient(circle at 25% 35%, rgba(69,196,176,0.35) 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, rgba(154,235,163,0.25) 0%, transparent 45%),
+      linear-gradient(180deg, #012030 0%, #012030 100%)
+    `
+  }}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-4">
-        {!isCollapsed && (
-          <span className="text-lg font-bold text-sidebar-foreground">
-            {'</'}<span className="text-accent">Edu</span>Sustenta{'>'}
-          </span>
+      <div className="flex h-16 items-center justify-center border-b border-sidebar-border">
+  {!isCollapsed && (
+    <Link to="/">  
+      <img 
+        src={logo} 
+        alt="EduSustenta" 
+        className="h-8 md:h-10 lg:h-10" 
+      />
+    </Link>
         )}
         {isCollapsed && (
           <span className="text-lg font-bold text-sidebar-foreground mx-auto">
