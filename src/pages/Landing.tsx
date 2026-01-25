@@ -99,7 +99,7 @@ export default function Landing() {
             <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">
               Home
             </Link>
-            <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">
+            <Link to="/about" className="text-sm font-medium text-white hover:text-emerald-200">
               Sobre
             </Link>
             <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">
