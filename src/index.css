@@ -84,14 +84,10 @@
   * {
     @apply border-border;
   }
+}
 
-  html {
-    font-family: 'Inter', system-ui, sans-serif;
-  }
-
-  body {
-    @apply bg-background text-foreground antialiased;
-  }
+html, body {
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 @layer components {
