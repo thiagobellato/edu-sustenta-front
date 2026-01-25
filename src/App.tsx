@@ -108,8 +108,6 @@ const App = () => (
               />
             </Route>
 
-            
-
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>

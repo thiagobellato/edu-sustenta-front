@@ -23,7 +23,7 @@ const teamMembers = [
   { name: 'Juan', github: 'juan-m-cloud' },
   { name: 'Fátima', github: 'fatimaguero' },
   { name: 'Marcus', github: 'MarcusAmoglia' },
-  { name: 'Kamille', github: 'Kalli-E' },
+  { name: 'Kalli', github: 'Kalli-E' },
   { name: 'Rafael', github: 'Rardisgamers965' },
 ];
 
@@ -106,10 +106,10 @@ export default function About() {
             />
           </svg>
         </div>
-      
+      </section>
 
       {/* Proposta Central */}
-      <section className="py-16 lg:py-20" style={{ backgroundColor: '#f6fff0' }}>
+      <section className="py-16 lg:py-20">
         <div className="container mx-auto px-4 max-w-4xl">
           <Card className="bg-white border-none shadow-lg">
             <CardContent className="p-8 lg:p-12">
@@ -140,7 +140,7 @@ export default function About() {
           </Card>
         </div>
       </section>
-</section>
+
       {/* Educação que gera impacto */}
       <section className="py-16 lg:py-20 text-white" style={darkBgStyle}>
         <div className="container mx-auto px-4">

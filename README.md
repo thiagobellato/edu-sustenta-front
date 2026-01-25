@@ -26,7 +26,6 @@ cd <NOME_DO_PROJETO>
 
 # Passo 3: Instale as dependências
 npm i
-npm install -D @vitejs/plugin-react-swc #se necessário
 
 # Passo 4: Inicie o servidor de desenvolvimento
 npm run dev

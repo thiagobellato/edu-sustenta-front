@@ -144,7 +144,7 @@ export default function Login() {
       </div>
 
       {/* Right Side - Decorative */}
-      <div className="hidden flex-1 bg-primary lg:flex lg:items-center lg:justify-center bg-[#012030]">
+      <div className="hidden flex-1 bg-primary lg:flex lg:items-center lg:justify-center">
         <div className="max-w-md p-12 text-center text-primary-foreground">
           <div className="mb-8 flex justify-center">
             <img

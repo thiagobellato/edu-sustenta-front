@@ -12,9 +12,6 @@ import iconRoute from '@/assets/icon-route.png';
 import iconQuestion from '@/assets/icon-question.png';
 import iconReward from '@/assets/icon-reward.png';
 import iconSend from '@/assets/icon-send.png';
-import logo from '@/assets/LOGO.svg';
-import background from '@/assets/background.svg';
-import link from 'react-router-dom';
 
 const featureCards = [
   {
@@ -69,77 +66,54 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background">
-      
-
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pb-15 pt-12 lg:pt-50"
-      style={{
-    background: `
-      radial-gradient(circle at 25% 35%, rgba(69,196,176,0.35) 0%, transparent 40%),
-      radial-gradient(circle at 70% 60%, rgba(154,235,163,0.25) 0%, transparent 45%),
-      linear-gradient(180deg, #012030 0%, #012030 100%)
-    `
-  }}>
-
-        {/* Header */}
-      <header className="w-full">
-        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5">
-          <div className="flex items-center">
-            <Link to="/">  
-              <img 
-                src={logo} 
-                alt="EduSustenta" 
-                className="h-10 md:h-12 lg:h-14"              />
-            </Link>
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-bold text-foreground">
+              {'</'}<span className="text-accent">Edu</span>
+              <br className="sm:hidden" />
+              Sustenta{'>'}
+            </span>
           </div>
 
-  
-
-          <nav className="hidden items-center gap-12 md:flex hover:shadow-xl hover:shadow-emerald-400/60">
-            <Link to="/" className="text-lg font-medium text-white hover:text-emerald-200">
+          <nav className="hidden items-center gap-8 md:flex">
+            <Link to="/" className="text-sm font-medium text-foreground hover:text-accent">
               Home
             </Link>
-            <Link to="/about" className="text-lg font-medium text-white hover:text-emerald-200">
+            <Link to="/about" className="text-sm font-medium text-foreground hover:text-accent">
               Sobre
             </Link>
-            <Link to="/" className="text-lg font-medium text-white hover:text-emerald-200">
+            <Link to="/" className="text-sm font-medium text-foreground hover:text-accent">
               Contato
             </Link>
           </nav>
 
-
-          <Link to="/login" className="text-xl font-medium text-emerald-400 text-accent hover:underline">
+          <Link to="/login" className="text-sm font-medium text-accent hover:underline">
             Login
           </Link>
         </div>
       </header>
-        
-        <div className="mx-auto max-w-[1200px] px-5 py-20">
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-primary pb-32 pt-12 lg:pt-16">
+        <div className="container relative mx-auto px-4">
           <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:justify-between">
             {/* Left Content */}
             <div className="max-w-lg text-left lg:pt-8">
-              <h1 className="font-display mb-6 text-4xl leading-tight text-primary-foreground text-white sm:text-5xl">
+              <h1 className="mb-6 text-4xl font-bold leading-tight text-primary-foreground sm:text-5xl">
                 Conhecimento livre para transformar o mundo.
               </h1>
 
-              <p className="text-white mb-8 text-lg text-primary-foreground/80">
+              <p className="mb-8 text-lg text-primary-foreground/80">
                 EduSustenta é uma plataforma educacional aberta e gamificada, focada no acesso democrático e conhecimento.
               </p>
 
               <Button
                 asChild
-                className="
-                          rounded-lg
-                          bg-gradient-to-r from-emerald-400 to-green-200
-                          px-6 py-3
-                          text-sm font-semibold uppercase tracking-wide text-zinc-950
-                          transition-all duration-300 ease-out
-                          hover:from-emerald-400 hover:to-green-50
-                          hover:shadow-xl hover:shadow-emerald-400/60
-                          hover:scale-[1.03]
-                        ">
-
-                <Link to="/register">CRIAR CONTA</Link>
+                className="rounded-full bg-accent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-accent-foreground hover:bg-accent/90"
+              >
+                <Link to="/register">Criar Conta</Link>
               </Button>
             </div>
 
@@ -164,31 +138,30 @@ export default function Landing() {
             preserveAspectRatio="none"
           >
             <path
-              d="M0 60C240 120 480 120 720 90C960 60 1200 0 1440 30V120H0V80Z"
-              fill="#f6fff0"
-
+              d="M0 60C240 120 480 120 720 90C960 60 1200 0 1440 30V120H0V60Z"
+              fill="hsl(60 11% 95%)"
             />
           </svg>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 lg:py-20 bg-[#f6fff0]">
-        <div className="mx-auto max-w-[1200px] px-4">
-          <h2 className="font-display mb-12 text-center text-2xl font-bold text-[#012030] sm:text-3xl">
-  Aprender também pode ser uma conquista.
-</h2>
+      <section className="py-16 lg:py-20">
+        <div className="container mx-auto px-4">
+          <h2 className="mb-12 text-center text-2xl font-bold text-foreground sm:text-3xl">
+            Aprender também pode ser uma conquista.
+          </h2>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featureCards.map((feature) => (
               <Card
                 key={feature.title}
-                className="overflow-hidden rounded-2xl border-0 bg-[#012030] text-primary-foreground shadow-lg"
+                className="overflow-hidden rounded-2xl border-0 bg-primary text-primary-foreground shadow-lg"
               >
                 <CardContent className="flex h-full flex-col justify-between p-6">
                   <div>
-                    <h3 className="font-display mb-2 text-lg text-white font-bold">{feature.title}</h3>
-                    <p className="text-sm text-white text-primary-foreground/80">{feature.description}</p>
+                    <h3 className="mb-2 text-lg font-bold">{feature.title}</h3>
+                    <p className="text-sm text-primary-foreground/80">{feature.description}</p>
                   </div>
                   <div className="mt-4 flex justify-end">
                     <img
@@ -205,9 +178,9 @@ export default function Landing() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 lg:py-20 bg-[#f6fff0]">
-        <div className="mx-auto max-w-[1200px] px-4">
-          <h2 className="font-display mb-12 text-center text-2xl font-bold text-[#012030] sm:text-3xl">
+      <section className="py-16 lg:py-20">
+        <div className="container mx-auto px-4">
+          <h2 className="mb-12 text-center text-2xl font-bold text-foreground sm:text-3xl">
             Como funciona o EduSustenta?
           </h2>
 
@@ -217,7 +190,7 @@ export default function Landing() {
                 key={step.title}
                 className="rounded-2xl border-0 bg-card shadow-md transition-transform hover:-translate-y-1"
               >
-                <CardContent className="font-display flex flex-col items-center p-6 text-center">
+                <CardContent className="flex flex-col items-center p-6 text-center">
                   <div className={`mb-4 flex h-16 w-16 items-center justify-center rounded-full ${step.bgColor}`}>
                     <img
                       src={step.image}
@@ -225,7 +198,7 @@ export default function Landing() {
                       className="h-10 w-10 object-contain"
                     />
                   </div>
-                  <p className="text-lg font-semibold text-foreground">{step.title}</p>
+                  <p className="text-sm font-semibold text-foreground">{step.title}</p>
                 </CardContent>
               </Card>
             ))}
@@ -234,39 +207,30 @@ export default function Landing() {
       </section>
 
       {/* Teacher CTA Section */}
-      <section className="py-16 lg:py-20 bg-[#f6fff0]">
-        <div className="mx-auto max-w-[1200px] px-4">
+      <section className="py-16 lg:py-20">
+        <div className="container mx-auto px-4">
           <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center">
             {/* Students Illustration */}
             <div className="w-full max-w-xs lg:max-w-sm">
               <img
                 src={studentsGroup}
-                alt="Estudantes"
+                alt="Grupo de estudantes"
                 className="h-auto w-full"
               />
             </div>
 
             {/* CTA Content */}
             <div className="text-center lg:text-left">
-              <h2 className="font-display mb-4 text-2xl font-bold text-[#012030] sm:text-3xl">
+              <h2 className="mb-4 text-2xl font-bold text-foreground sm:text-3xl">
                 Você é professor?
               </h2>
-              <p className="mb-6 max-w-md text-[#012030]">
+              <p className="mb-6 max-w-md text-muted-foreground">
                 Crie trilhas de aprendizagem, compartilhe conhecimento e impacte alunos de todos país
               </p>
               <Button
                 asChild
-                className="
-                          rounded-lg
-                          bg-gradient-to-r from-emerald-400 to-green-200
-                          px-6 py-3
-                          text-sm font-semibold uppercase tracking-wide text-zinc-950
-                          transition-all duration-300 ease-out
-                          hover:from-emerald-400 hover:to-green-50
-                          hover:shadow-xl hover:shadow-emerald-400/60
-                          hover:scale-[1.03]
-                        ">
-              
+                className="rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary-foreground hover:bg-primary/90"
+              >
                 <Link to="/register">Criar Trilha</Link>
               </Button>
             </div>
@@ -275,17 +239,14 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary py-12 bg-[#012030]">
-        <div className="mx-auto max-w-[1200px] px-4">
+      <footer className="bg-primary py-12">
+        <div className="container mx-auto px-4">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <Link to="/">  
-              <img 
-                src={logo} 
-                alt="EduSustenta" 
-                className="h-10 md:h-12 lg:h-14"              />
-            </Link>
+            <span className="text-lg font-bold text-primary-foreground">
+              {'</'}<span className="text-accent">Edu</span>Sustenta{'>'}
+            </span>
             <p className="text-sm text-primary-foreground/60">
-              © 2026 EduSustenta. Todos os direitos reservados.
+              © 2024 EduSustenta. Todos os direitos reservados.
             </p>
           </div>
         </div>
