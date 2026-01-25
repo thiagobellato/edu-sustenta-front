@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Users, Search, Loader2, BookOpen, School, Mail, MoreVertical } from 'lucide-react';
+import { Users, Search, Loader2, BookOpen, School, Mail, MoreVertical, Calendar } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -14,164 +14,125 @@ import {
 import { useState } from 'react';
 import { professorsApi } from '@/lib/api';
 
-interface Professor {
-  id: number;
-  name: string;
-  email: string;
-  avatar?: string;
-  escolas: Array<{ id: number; nome: string }>;
-  total_trilhas: number;
-  total_alunos: number;
-  criado_em?: string;
-}
-
 export default function Professors() {
   const [search, setSearch] = useState('');
 
-  const { data: professors, isLoading } = useQuery<Professor[]>({
+  const { data: professors, isLoading, isError, error } = useQuery({
     queryKey: ['professors'],
     queryFn: async () => {
-      const response = await professorsApi.getAll();
-      return response.data;
+      try {
+        const response = await professorsApi.getAll();
+        console.log("Dados da API:", response.data); // DEBUG
+        return response.data || [];
+      } catch (err) {
+        console.error("Erro na requisição:", err);
+        throw err;
+      }
     },
   });
 
-  const filteredProfessors = professors?.filter((professor) =>
-    professor.name.toLowerCase().includes(search.toLowerCase()) ||
-    professor.email.toLowerCase().includes(search.toLowerCase())
-  );
+  // Filtro seguro: garante que não tenta filtrar algo que não é array
+  const filteredProfessors = Array.isArray(professors) 
+    ? professors.filter((p) =>
+        (p.name?.toLowerCase() || "").includes(search.toLowerCase()) ||
+        (p.email?.toLowerCase() || "").includes(search.toLowerCase())
+      )
+    : [];
 
   if (isLoading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#012030]" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex h-[60vh] flex-col items-center justify-center p-4">
+        <p className="text-red-500 font-bold">Falha ao carregar dados.</p>
+        <pre className="text-xs bg-gray-100 p-2 mt-2">{(error as any)?.message}</pre>
+        <Button onClick={() => window.location.reload()} className="mt-4">Recarregar</Button>
       </div>
     );
   }
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Professores</h1>
-          <p className="text-muted-foreground">
-            Gerencie os professores vinculados às suas escolas
-          </p>
-        </div>
-        <Badge variant="secondary" className="text-sm w-fit">
-          <Users className="mr-1 h-4 w-4" />
-          {professors?.length ?? 0} professores
+        <h1 className="font-display text-3xl font-bold text-[#012030]">Corpo Docente</h1>
+        <Badge className="bg-[#012030] text-white">
+          {filteredProfessors.length} Professores
         </Badge>
       </div>
 
-      {/* Search */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Buscar por nome ou email..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-        </CardContent>
-      </Card>
+      <Input
+        placeholder="Buscar..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="border-[#012030]/10"
+      />
 
-      {/* Professors Grid */}
-      {filteredProfessors && filteredProfessors.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredProfessors.map((professor) => (
-            <ProfessorCard key={professor.id} professor={professor} />
-          ))}
-        </div>
-      ) : (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <Users className="h-12 w-12 text-muted-foreground/50" />
-            <p className="mt-4 text-lg font-medium text-muted-foreground">
-              Nenhum professor encontrado
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {search ? 'Tente buscar por outro termo' : 'Convide professores usando o token da escola'}
-            </p>
-          </CardContent>
-        </Card>
-      )}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {filteredProfessors.map((professor) => (
+          <ProfessorCard key={professor.id} professor={professor} />
+        ))}
+      </div>
     </div>
   );
 }
 
-function ProfessorCard({ professor }: { professor: Professor }) {
+function ProfessorCard({ professor }: { professor: any }) {
+  // O principal motivo de tela branca é tentar acessar .map() em algo nulo
+  const escolas = Array.isArray(professor.escolas) ? professor.escolas : [];
+
+  // Formatação de data segura para evitar quebra se a string for inválida
+  const formatDate = (dateStr: string) => {
+    try {
+      if (!dateStr) return null;
+      return new Date(dateStr).toLocaleDateString('pt-BR');
+    } catch {
+      return null;
+    }
+  };
+
   return (
-    <Card className="transition-all hover:shadow-lg">
-      <CardHeader className="pb-3">
-        <div className="flex items-start gap-4">
-          <Avatar className="h-12 w-12">
-            <AvatarImage src={professor.avatar} alt={professor.name} />
-            <AvatarFallback className="bg-primary text-primary-foreground">
-              {professor.name.slice(0, 2).toUpperCase()}
+    <Card className="border-[#012030]/10 overflow-hidden shadow-sm">
+      <CardHeader className="pb-2">
+        <div className="flex items-center gap-3">
+          <Avatar>
+            <AvatarImage src={professor.avatar} />
+            <AvatarFallback className="bg-[#012030] text-white">
+              {professor.name?.substring(0, 2).toUpperCase() || "P"}
             </AvatarFallback>
           </Avatar>
-          <div className="flex-1 min-w-0">
-            <CardTitle className="text-base truncate">{professor.name}</CardTitle>
-            <CardDescription className="flex items-center gap-1 truncate">
-              <Mail className="h-3 w-3" />
-              {professor.email}
-            </CardDescription>
+          <div className="min-w-0">
+            <p className="font-bold text-[#012030] truncate">{professor.name || "Sem Nome"}</p>
+            <p className="text-xs text-gray-500 truncate">{professor.email}</p>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <MoreVertical className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Ver perfil</DropdownMenuItem>
-              <DropdownMenuItem>Enviar mensagem</DropdownMenuItem>
-              <DropdownMenuItem className="text-destructive">Desvincular</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Schools */}
-        <div>
-          <p className="text-sm font-medium text-muted-foreground mb-2">Escolas vinculadas</p>
-          <div className="flex flex-wrap gap-1">
-            {professor.escolas.length > 0 ? (
-              professor.escolas.map((escola) => (
-                <Badge key={escola.id} variant="secondary" className="text-xs">
-                  <School className="mr-1 h-3 w-3" />
-                  {escola.nome}
-                </Badge>
-              ))
-            ) : (
-              <span className="text-sm text-muted-foreground">Nenhuma escola</span>
-            )}
+        <div className="flex flex-wrap gap-1">
+          {escolas.map((escola: any) => (
+            <Badge key={escola.id} variant="secondary" className="text-[10px]">
+              {escola.nome || escola.name}
+            </Badge>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="bg-secondary/20 p-2 rounded text-center">
+            <p className="text-lg font-bold">{professor.total_trilhas || 0}</p>
+            <p className="text-[10px] uppercase opacity-50">Trilhas</p>
+          </div>
+          <div className="bg-secondary/20 p-2 rounded text-center">
+            <p className="text-lg font-bold">{professor.total_alunos || 0}</p>
+            <p className="text-[10px] uppercase opacity-50">Alunos</p>
           </div>
         </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-lg bg-secondary p-3 text-center">
-            <BookOpen className="mx-auto h-5 w-5 text-primary" />
-            <p className="mt-1 text-xl font-bold">{professor.total_trilhas}</p>
-            <p className="text-xs text-muted-foreground">Trilhas criadas</p>
-          </div>
-          <div className="rounded-lg bg-secondary p-3 text-center">
-            <Users className="mx-auto h-5 w-5 text-accent-foreground" />
-            <p className="mt-1 text-xl font-bold">{professor.total_alunos}</p>
-            <p className="text-xs text-muted-foreground">Alunos</p>
-          </div>
-        </div>
-
-        {/* Join date */}
         {professor.criado_em && (
-          <p className="text-xs text-muted-foreground text-center">
-            Membro desde: {new Date(professor.criado_em).toLocaleDateString('pt-BR')}
+          <p className="text-[10px] text-center text-gray-400">
+            Desde: {formatDate(professor.criado_em)}
           </p>
         )}
       </CardContent>

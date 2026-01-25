@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { schoolsApi } from '@/lib/api';
@@ -84,46 +85,48 @@ export default function Profile() {
   return (
     <div className="mx-auto max-w-2xl space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold text-foreground">Meu Perfil</h1>
-        <p className="text-muted-foreground">
+        <h1 className="font-display text-3xl font-bold text-[#012030]">Meu Perfil</h1>
+        <p className="text-[#012030]/70">
           Gerencie suas informações pessoais
         </p>
       </div>
 
       {/* Profile Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Informações Pessoais</CardTitle>
-          <CardDescription>Seus dados de cadastro na plataforma</CardDescription>
+      <Card className="border-[#012030]/10 overflow-hidden">
+        <CardHeader className="border-b border-[#012030]/5 bg-secondary/20">
+          <CardTitle className="text-[#012030]">Informações Pessoais</CardTitle>
+          <CardDescription className="text-[#012030]/60 text-sm">Seus dados de cadastro na plataforma</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 pt-6">
           <div className="flex items-center gap-4">
-            <Avatar className="h-20 w-20">
+            <Avatar className="h-24 w-24 border-4 border-secondary shadow-sm">
               <AvatarImage src={user?.avatar} />
-              <AvatarFallback className="gradient-primary text-primary-foreground text-xl">
+              <AvatarFallback className="bg-[#012030] text-white text-2xl font-display">
                 {user?.name ? getInitials(user.name) : 'U'}
               </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="text-xl font-semibold">{user?.name}</h3>
-              <p className="text-muted-foreground">{getRoleName(user?.role || '')}</p>
+              <h3 className="font-display text-2xl font-bold text-[#012030]">{user?.name}</h3>
+              <Badge className="bg-secondary text-[#012030] border-none hover:bg-secondary/80">
+                {getRoleName(user?.role || '')}
+              </Badge>
             </div>
           </div>
 
           <div className="grid gap-4">
-            <div className="flex items-center gap-3 rounded-lg border p-4">
-              <User className="h-5 w-5 text-muted-foreground" />
+            <div className="group flex items-center gap-3 rounded-xl border border-[#012030]/10 p-4 transition-colors hover:bg-secondary/10">
+              <User className="h-5 w-5 text-[#012030]/40 group-hover:text-[#012030]" />
               <div>
-                <p className="text-sm text-muted-foreground">Nome</p>
-                <p className="font-medium">{user?.name}</p>
+                <p className="text-[10px] uppercase font-bold text-[#012030]/40 tracking-wider">Nome Completo</p>
+                <p className="font-medium text-[#012030]">{user?.name}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 rounded-lg border p-4">
-              <Mail className="h-5 w-5 text-muted-foreground" />
+            <div className="group flex items-center gap-3 rounded-xl border border-[#012030]/10 p-4 transition-colors hover:bg-secondary/10">
+              <Mail className="h-5 w-5 text-[#012030]/40 group-hover:text-[#012030]" />
               <div>
-                <p className="text-sm text-muted-foreground">Email</p>
-                <p className="font-medium">{user?.email}</p>
+                <p className="text-[10px] uppercase font-bold text-[#012030]/40 tracking-wider">E-mail de Acesso</p>
+                <p className="font-medium text-[#012030]">{user?.email}</p>
               </div>
             </div>
           </div>
@@ -132,54 +135,54 @@ export default function Profile() {
 
       {/* Token Validation Card - Only for Alunos */}
       {user?.role === 'aluno' && (
-        <Card>
+        <Card className="border-[#012030]/10 shadow-lg">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-[#012030]">
               <Key className="h-5 w-5" />
               Tornar-se Professor
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-[#012030]/60">
               Insira o token de convite recebido do gestor da escola
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Alert className="mb-4 border-primary/20 bg-primary/5">
-              <AlertCircle className="h-4 w-4 text-primary" />
-              <AlertTitle className="text-primary">Como funciona?</AlertTitle>
-              <AlertDescription className="text-primary/80">
-                O gestor da escola gera um token de convite válido por 15 minutos.
-                Ao inserir um token válido, você se tornará professor automaticamente.
+            <Alert className="mb-6 border-[#012030]/10 bg-secondary/30">
+              <AlertCircle className="h-4 w-4 text-[#012030]" />
+              <AlertTitle className="text-[#012030] font-bold">Como funciona?</AlertTitle>
+              <AlertDescription className="text-[#012030]/70">
+                O gestor da escola gera um token válido por 15 minutos. 
+                Ao validar, sua conta receberá permissões de professor instantaneamente.
               </AlertDescription>
             </Alert>
 
             <form onSubmit={handleSubmit(onSubmitToken)} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="token">Token de Convite</Label>
+                <Label htmlFor="token" className="text-[#012030]/80 font-semibold">Token de Convite</Label>
                 <Input
                   id="token"
-                  placeholder="Cole o token aqui..."
+                  placeholder="Ex: XXXX-XXXX-XXXX"
                   {...register('token')}
-                  className={errors.token ? 'border-destructive' : ''}
+                  className={`border-[#012030]/10 focus:border-[#012030] ${errors.token ? 'border-destructive' : ''}`}
                 />
                 {errors.token && (
-                  <p className="text-sm text-destructive">{errors.token.message}</p>
+                  <p className="text-sm font-medium text-destructive">{errors.token.message}</p>
                 )}
               </div>
 
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full gradient-primary"
+                className="w-full bg-[#012030] text-white hover:bg-[#012030]/90 h-11"
               >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Validando...
+                    Validando Token...
                   </>
                 ) : (
                   <>
                     <CheckCircle className="mr-2 h-4 w-4" />
-                    Validar Token
+                    Validar e Atualizar Conta
                   </>
                 )}
               </Button>
@@ -190,12 +193,11 @@ export default function Profile() {
 
       {/* Success Message for Professors */}
       {user?.role === 'professor' && (
-        <Alert className="border-primary/20 bg-primary/5">
-          <CheckCircle className="h-4 w-4 text-primary" />
-          <AlertTitle className="text-primary">Você é um professor!</AlertTitle>
-          <AlertDescription className="text-primary/80">
-            Parabéns! Você tem acesso a todas as funcionalidades de criação e
-            gestão de trilhas educacionais.
+        <Alert className="border-emerald-200 bg-emerald-50 shadow-sm animate-in zoom-in-95">
+          <CheckCircle className="h-4 w-4 text-emerald-600" />
+          <AlertTitle className="text-emerald-800 font-bold font-display">Você é um professor!</AlertTitle>
+          <AlertDescription className="text-emerald-700/80">
+            Sua conta está ativa. Você já pode criar trilhas, gerenciar alunos e acompanhar o progresso das suas turmas.
           </AlertDescription>
         </Alert>
       )}

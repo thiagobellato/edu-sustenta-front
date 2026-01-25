@@ -13,6 +13,7 @@ import { useAuth, UserRole } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import logo from '@/assets/LOGO.svg';
 
 interface NavItem {
   title: string;
@@ -84,16 +85,28 @@ export function AppSidebar({ isCollapsed = false }: AppSidebarProps) {
   return (
     <aside
       className={cn(
-        'flex h-screen flex-col bg-sidebar text-sidebar-foreground transition-all duration-300',
+        'flex flex-col bg-sidebar text-sidebar-foreground transition-all duration-300',
+        'h-screen sticky top-0 z-40', // Ajuste principal: Altura da tela e fixo no topo
         isCollapsed ? 'w-16' : 'w-64'
       )}
+      style={{
+        background: `
+          radial-gradient(circle at 25% 35%, rgba(69,196,176,0.35) 0%, transparent 40%),
+          radial-gradient(circle at 70% 60%, rgba(154,235,163,0.25) 0%, transparent 45%),
+          linear-gradient(180deg, #012030 0%, #012030 100%)
+        `
+      }}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-4">
+      <div className="flex h-16 items-center justify-center border-b border-sidebar-border shrink-0">
         {!isCollapsed && (
-          <span className="text-lg font-bold text-sidebar-foreground">
-            {'</'}<span className="text-accent">Edu</span>Sustenta{'>'}
-          </span>
+          <Link to="/">
+            <img
+              src={logo}
+              alt="EduSustenta"
+              className="h-8 md:h-10 lg:h-10"
+            />
+          </Link>
         )}
         {isCollapsed && (
           <span className="text-lg font-bold text-sidebar-foreground mx-auto">
@@ -102,8 +115,8 @@ export function AppSidebar({ isCollapsed = false }: AppSidebarProps) {
         )}
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 space-y-1 p-3">
+      {/* Navigation - Adicionado overflow-y-auto para lidar com listas longas */}
+      <nav className="flex-1 space-y-1 p-3 overflow-y-auto scrollbar-hide">
         {filteredItems.map((item) => {
           const isActive = location.pathname === item.href;
           return (
@@ -118,14 +131,14 @@ export function AppSidebar({ isCollapsed = false }: AppSidebarProps) {
               )}
             >
               <item.icon className="h-5 w-5 flex-shrink-0" />
-              {!isCollapsed && <span>{item.title}</span>}
+              {!isCollapsed && <span className="truncate">{item.title}</span>}
             </Link>
           );
         })}
       </nav>
 
-      {/* User Section */}
-      <div className="border-t border-sidebar-border p-3">
+      {/* User Section - Fixada na base */}
+      <div className="border-t border-sidebar-border p-3 shrink-0">
         <Link
           to="/profile"
           className={cn(
@@ -139,16 +152,16 @@ export function AppSidebar({ isCollapsed = false }: AppSidebarProps) {
           {!isCollapsed && <span>Configurações</span>}
         </Link>
 
-        <div className="mt-3 flex items-center gap-3 rounded-xl bg-sidebar-accent px-3 py-2.5">
+        <div className="mt-3 flex items-center gap-3 rounded-xl bg-sidebar-accent/50 px-3 py-2.5">
           <Avatar className="h-8 w-8">
             <AvatarImage src={user?.avatar} />
-            <AvatarFallback className="bg-accent text-accent-foreground text-xs">
+            <AvatarFallback className="bg-accent text-accent-foreground text-xs font-bold">
               {user?.name ? getInitials(user.name) : 'U'}
             </AvatarFallback>
           </Avatar>
           {!isCollapsed && (
-            <div className="flex-1 overflow-hidden">
-              <p className="truncate text-sm font-medium text-sidebar-foreground">
+            <div className="flex-1 overflow-hidden text-left">
+              <p className="truncate text-sm font-semibold text-sidebar-foreground">
                 {user?.name}
               </p>
               <p className="truncate text-xs text-sidebar-foreground/60">
@@ -166,7 +179,7 @@ export function AppSidebar({ isCollapsed = false }: AppSidebarProps) {
           variant="ghost"
           onClick={logout}
           className={cn(
-            'mt-2 w-full justify-start gap-3 text-sidebar-foreground/80 hover:bg-destructive/10 hover:text-destructive',
+            'mt-2 w-full justify-start gap-3 text-sidebar-foreground/80 hover:bg-destructive/10 hover:text-destructive transition-colors',
             isCollapsed && 'justify-center px-0'
           )}
         >
