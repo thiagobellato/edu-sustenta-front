@@ -68,7 +68,6 @@ export default function Home() {
   );
 }
 
-// --- DASHBOARD GESTOR ---
 function GestorDashboard({ stats }: { stats?: DashboardStats }) {
   return (
     <div className="space-y-6">
@@ -93,7 +92,6 @@ function GestorDashboard({ stats }: { stats?: DashboardStats }) {
   );
 }
 
-// --- DASHBOARD PROFESSOR ---
 function ProfessorDashboard({ stats }: { stats?: DashboardStats }) {
   const hasSchool = (stats?.escolas_vinculadas ?? 0) > 0;
   return (
@@ -131,7 +129,6 @@ function ProfessorDashboard({ stats }: { stats?: DashboardStats }) {
   );
 }
 
-// --- DASHBOARD ALUNO (Ajustado) ---
 function AlunoDashboard({ stats }: { stats?: DashboardStats }) {
   const progressPercent = stats?.nivel ? Math.min((stats.pontos ?? 0) % 100, 100) : 0;
 
@@ -149,7 +146,6 @@ function AlunoDashboard({ stats }: { stats?: DashboardStats }) {
         </Button>
       </div>
 
-      {/* CARD DE PROGRESSO COM FIX DE RESPONSIVIDADE */}
       <Card className="overflow-hidden border-none shadow-xl" style={{
         background: `
           radial-gradient(circle at 25% 35%, rgba(69,196,176,0.35) 0%, transparent 40%),
@@ -159,7 +155,6 @@ function AlunoDashboard({ stats }: { stats?: DashboardStats }) {
       }}>
         <CardContent className="p-6">
           <div className="flex flex-col gap-6 text-white md:flex-row md:items-center">
-            {/* Esquerda: Nível */}
             <div className="flex items-center gap-4 shrink-0">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20">
                 <Trophy className="h-8 w-8 text-white" />
@@ -170,7 +165,6 @@ function AlunoDashboard({ stats }: { stats?: DashboardStats }) {
               </div>
             </div>
 
-            {/* Direita: Barra de Progresso Flexível */}
             <div className="flex-1 min-w-0 w-full">
               <div className="mb-2 flex items-end justify-between text-sm">
                 <span className="font-semibold truncate">{stats?.pontos ?? 0} pontos acumulados</span>
