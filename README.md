@@ -1,106 +1,76 @@
-# Edusustenta
+## 🌍 Bolsa Futuro Digital
 
-Frontend do projeto Edusustenta, desenvolvido como Projeto Integrador do curso Bolsa Futuro Digital da Aponti pela Equipe Lantra.
+**Integrando a Sustentabilidade (ODS)**
 
-
-## Tecnologias Utilizadas
-
-Este projeto foi construído com:
-=======
 <p align="center">  
- <img src="https://img.shields.io/badge/Status-Concluido-green?style=for-the-badge" alt="Status: Concluído"/>
+ <img src="https://img.shields.io/badge/Status-Conclu%C3%ADdo-success?style=for-the-badge" alt="Status: Concluído"/>
 </p>
 
 ---
 
 ### 💡 Visão Geral / Ideia do Projeto
 
-O **Edu-Sustenta** é uma plataforma em desenvolvimento com a missão de conectar educação, sustentabilidade e engajamento cidadão.
-Nossa proposta é construir um ambiente digital onde o conhecimento dos Objetivos de Desenvolvimento Sustentável (ODS) é elevado além da teoria: transformado em ações concretas e mensuráveis. Esperamos que essa plataforma evolua a partir de co-criação com usuários, organizações e educadores, de modo que cada comunidade possa adaptar os recursos à sua realidade e contribuir para a transformação local e global.
+O **Edu-Sustenta** é a interface web da plataforma educacional digital desenvolvida com a missão de conectar educação, sustentabilidade e engajamento cidadão. Este repositório é responsável por toda a camada de apresentação e experiência do usuário, permitindo a interação com os recursos educacionais e funcionalidades disponibilizadas pelo backend.
 
-Alguns dos pontos que poderão ser explorados:
+A plataforma foi concebida como um ambiente interativo e responsivo, onde o usuário não apenas consome conteúdo, mas também participa ativamente de trilhas de aprendizagem, desafios e acompanhamento de progresso, fortalecendo o papel da educação como instrumento de transformação social.
 
-* Conteúdo educativo modularizado (textos, vídeos, infográficos) sobre temas dos ODS.
-* Trilhas de aprendizagem personalizadas com foco em sustentabilidade e cidadania.
-* Ferramentas de monitoramento de progresso individual ou coletivo.
-* Gamificação para incentivar engajamento (badges, desafios, rankings).
-* Espaços de ação: conectar projetos comunitários locais à plataforma, para divulgação e acompanhamento.
-* Mecanismos de feedback e adaptação: permitir que os usuários sugiram temas, melhorias e façam coconcepção.
+Principais funcionalidades implementadas:
 
-> ⚠️ Essa proposta ainda está em construção — muitos detalhes (módulos exatos, escopo inicial, público-alvo) serão definidos pela equipe.
+* Interface web responsiva e acessível.
+* Consumo das APIs REST do backend.
+* Sistema de autenticação e sessão de usuários.
+* Visualização de conteúdos educacionais e trilhas.
+* Acompanhamento visual de progresso.
+* Gamificação básica (pontuação e conquistas).
+* Arquitetura baseada em componentes reutilizáveis.
 
 ---
+
 ### 🛠️ Stack Tecnológica
 
 <div align="center">
 
-| Camada                         | Tecnologias / Decisões                                                                                                                                                                                                                      |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Linguagem & Backend**        | <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" /> <img alt="Django" src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" /> |
-| **Banco de Dados**             | <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />                                                                                                           |
-| **Modelagem**                  | <img alt="UML" src="https://img.shields.io/badge/Modelagem-UML-5C2D91?style=for-the-badge&logo=uml&logoColor=white" />                                                                                                                      |
-| **Metodologia de Projeto**     | <img alt="Scrum" src="https://img.shields.io/badge/Gerenciamento-Scrum-007ACC?style=for-the-badge&logo=scrum&logoColor=white" />                                                                                                            |
-| **Ferramentas de Organização** | <img alt="Trello" src="https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white" />                                                                                                                       |
+| Camada                  | Tecnologias / Decisões                                                                                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Linguagem / Frontend**| <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />                                                                                                           |
+| **Framework UI**        | <img alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />                                                                                                                         |
+| **Build Tool**          | <img alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />                                                                                                                             |
+| **Estilização**         | <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white" />                                                                                                      |
+| **Componentes UI**      | <img alt="shadcn/ui" src="https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge" />                                                                                                                                           |
+| **Metodologia**         | <img alt="Scrum" src="https://img.shields.io/badge/Scrum-007ACC?style=for-the-badge" />                                                                                                                                                     |
+| **Organização**         | <img alt="Trello" src="https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white" />                                                                                                                       |
 
 </div>
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-
-## Como Executar o Projeto Localmente
-=======
 ---
-### 📦 Dependências do Projeto (Frontend)
+
+### 📦 Dependências do Projeto
 
 Principais bibliotecas e ferramentas utilizadas no frontend:
 
-- **Vite** – Ferramenta de build e servidor de desenvolvimento extremamente rápido, utilizada para inicializar e rodar o projeto React com melhor performance durante o desenvolvimento.
-    
-- **React** – Biblioteca JavaScript para construção de interfaces de usuário baseadas em componentes reutilizáveis e gerenciamento eficiente do estado da aplicação.
-    
-- **TypeScript** – Superset do JavaScript que adiciona tipagem estática ao código, aumentando a segurança, legibilidade e manutenção do projeto.
-    
-- **Tailwind CSS** – Framework CSS utilitário que permite estilização rápida e consistente por meio de classes, facilitando a criação de layouts responsivos e modernos.
-    
-- **shadcn/ui** – Biblioteca de componentes reutilizáveis construída sobre Tailwind CSS e Radix UI, focada em acessibilidade, personalização e design consistente.
- 
-#### 💻 Como Executar o Projeto Localmente
+* **Vite** – Ferramenta de build e servidor de desenvolvimento.
+* **React** – Construção de interfaces baseadas em componentes.
+* **TypeScript** – Tipagem estática e maior segurança no código.
+* **Tailwind CSS** – Estilização utilitária e responsiva.
+* **shadcn/ui** – Componentes reutilizáveis com foco em acessibilidade.
+* **Axios / Fetch API** – Comunicação HTTP com o backend.
 
-Para rodar o projeto em sua máquina, você precisará ter Node.js e npm instalados. Se ainda não os possui, recomendamos instalar usando o [nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+---
+
+### 💻 Execução do Projeto
+
+Para executar o projeto localmente, é necessário ter **Node.js** e **npm** instalados.
 
 Siga os passos abaixo:
 
-```sh
+* Clone o repositório do frontend.
+* Acesse a pasta do projeto.
+* Instale as dependências com `npm install`.
+* Inicie o servidor com `npm run dev`.
 
-# Passo 1: Clone o repositório
+A aplicação estará disponível geralmente em:
 
-git clone <URL_DO_SEU_REPOSITORIO>
-
-  
-
-# Passo 2: Entre na pasta do projeto
-
-cd <NOME_DO_PROJETO>
-
-  
-
-# Passo 3: Instale as dependências
-
-npm i
-npm install -D @vitejs/plugin-react-swc  #se necessário
-  
-
-# Passo 4: Inicie o servidor de desenvolvimento
-
-npm run dev
-
-```
-
-Após executar esses comandos, o projeto estará rodando localmente e você poderá acessá-lo através do navegador.
+* `http://localhost:5173`
 
 ---
 
@@ -115,53 +85,43 @@ Nosso time é composto por:
 <a href="https://github.com/juan-m-cloud"><img src="https://img.shields.io/badge/Juan-000?style=for-the-badge&logo=github&logoColor=white" alt="Juan"/></a> 
 <a href="https://github.com/fatimaguero"><img src="https://img.shields.io/badge/Fátima-000?style=for-the-badge&logo=github&logoColor=white" alt="Fátima"/></a>
 <a href="https://github.com/MarcusAmoglia"><img src="https://img.shields.io/badge/Marcus-000?style=for-the-badge&logo=github&logoColor=white" alt="Marcus"/></a>
-<a href="https://github.com/Kalli-E"><img src="https://img.shields.io/badge/Kamille-000?style=for-the-badge&logo=github&logoColor=white" alt="Kamille"/></a>
+<a href="https://github.com/Kalli-E"><img src="https://img.shields.io/badge/Kalli-000?style=for-the-badge&logo=github&logoColor=white" alt="Kamille"/></a>
 <a href="https://github.com/Rardisgamers965"><img src="https://img.shields.io/badge/Rafael-000?style=for-the-badge&logo=github&logoColor=white" alt="Rafael"/></a>
 
 </div>
 
+Cada membro pode ter áreas de responsabilidade atribuídas conforme avance o projeto (conteúdo, backend, frontend, UX, testes etc.).
 
-Para rodar o projeto em sua máquina, você precisará ter Node.js e npm instalados. Se ainda não os possui, recomendamos instalar usando o [nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+### 📅 Status & Próximos Passos
 
-Siga os passos abaixo:
-```sh
-# Passo 1: Clone o repositório
-git clone <URL_DO_SEU_REPOSITORIO>
+#### 📍 Status Atual (Final do Projeto)
 
-# Passo 2: Entre na pasta do projeto
-cd <NOME_DO_PROJETO>
+* Frontend completamente implementado.
+* Integração total com as APIs do backend.
+* Interfaces responsivas e funcionais.
+* Fluxo de autenticação operacional.
+* Navegação entre módulos educacionais.
+* Testes manuais realizados.
 
-# Passo 3: Instale as dependências
-npm i
+#### 🔮 Possíveis Evoluções Futuras
 
+Apesar de o projeto estar concluído como MVP acadêmico, ele pode ser expandido com:
 
-# Passo 4: Inicie o servidor de desenvolvimento
-npm run dev
-```
-=======
-#### ⏭ Próximos Passos
-
-1. **Definição mais precisa do escopo inicial** — quais módulos entregar no MVP (mínimo viável).
-2. Criação de **roadmap** de entregas e sprints.
-3. Modelagem de domínio detalhada (entidades, casos de uso, fluxos).
-4. Desenvolvimento do backend inicial com APIs básicas.
-5. Seleção dos primeiros temas/conteúdos com base em ODS prioritários.
-
-#### 🤝Contribuindo
-
- Sinta-se à vontade para contribuir com o projeto. Para isso, faça um fork do repositório, crie uma branch para suas modificações e envie um pull request.
+* Implementação de testes automatizados.
+* Internacionalização (i18n).
+* Progressive Web App (PWA).
+* Melhorias de acessibilidade.
+* Deploy em nuvem (Vercel, Netlify, etc).
 
 ---
 
-Após executar esses comandos, o projeto estará rodando localmente e você poderá acessá-lo através do navegador.
+### 📚 Recursos & Referências
 
-## Contribuindo
-
-Sinta-se à vontade para contribuir com o projeto. Para isso, faça um fork do repositório, crie uma branch para suas modificações e envie um pull request.
+* Agenda 2030 — Relatório Oficial da ONU
+* React Documentation
+* Tailwind CSS Docs
+* shadcn/ui
 
 ---
 
-
-Desenvolvido pela Equipe Lantra
-=======
 > Projeto desenvolvido como parte do programa **Bolsa Futuro Digital**.
