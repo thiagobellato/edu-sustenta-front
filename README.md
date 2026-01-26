@@ -1,7 +1,12 @@
-## 🌍 Bolsa Futuro Digital
+# Edusustenta
 
-**Integrando a Sustentabilidade (ODS)**
+Frontend do projeto Edusustenta, desenvolvido como Projeto Integrador do curso Bolsa Futuro Digital da Aponti pela Equipe Lantra.
 
+
+## Tecnologias Utilizadas
+
+Este projeto foi construído com:
+=======
 <p align="center">  
  <img src="https://img.shields.io/badge/Status-Concluido-green?style=for-the-badge" alt="Status: Concluído"/>
 </p>
@@ -39,8 +44,15 @@ Alguns dos pontos que poderão ser explorados:
 
 </div>
 
-Podemos depois adicionar frontend (React, Vue etc.), infraestrutura (Docker, CI/CD, deploy) conforme as necessidades evoluírem.
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
+
+## Como Executar o Projeto Localmente
+=======
 ---
 ### 📦 Dependências do Projeto (Frontend)
 
@@ -109,17 +121,24 @@ Nosso time é composto por:
 </div>
 
 
-Cada membro pode ter áreas de responsabilidade atribuídas conforme avance o projeto (conteúdo, backend, frontend, UX, testes etc.).
+Para rodar o projeto em sua máquina, você precisará ter Node.js e npm instalados. Se ainda não os possui, recomendamos instalar usando o [nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
----
+Siga os passos abaixo:
+```sh
+# Passo 1: Clone o repositório
+git clone <URL_DO_SEU_REPOSITORIO>
 
-### 📅 Status & Próximos Passos
+# Passo 2: Entre na pasta do projeto
+cd <NOME_DO_PROJETO>
 
-#### 📍 Status Atual
+# Passo 3: Instale as dependências
+npm i
 
-* Estrutura inicial definida (README, escopo macro).
-* Pesquisa preliminar de referência sobre ODS, educação e plataformas digitais em andamento.
 
+# Passo 4: Inicie o servidor de desenvolvimento
+npm run dev
+```
+=======
 #### ⏭ Próximos Passos
 
 1. **Definição mais precisa do escopo inicial** — quais módulos entregar no MVP (mínimo viável).
@@ -134,18 +153,15 @@ Cada membro pode ter áreas de responsabilidade atribuídas conforme avance o pr
 
 ---
 
-### 📚 Recursos & Referências
+Após executar esses comandos, o projeto estará rodando localmente e você poderá acessá-lo através do navegador.
 
-* [Agenda 2030 — Relatório Oficial da ONU](https://brasil.un.org/sites/default/files/2020-09/agenda2030-pt-br.pdf)
-* [Educação de Qualidade (ODS 4) — ONU Brasil](https://brasil.un.org/pt-br/sdgs/4)
-* [Meta 4.7: Educação para o Desenvolvimento Sustentável — UNESCO](https://unesdoc.unesco.org/ark%3A/48223/pf0000375079)
-* [Guia de Monitoramento ODS 4 (2024)](https://educationoutloud.org/wp-content/uploads/2024/05/Guia-6-%E2%80%93-Monitoramento-de-ODS-4-PORT-826.pdf)
-* [Declaração de Incheon / Marco de Ação para Educação 2030](https://inee.org/sites/default/files/resources/245656por.pdf)
+## Contribuindo
 
-> **Meta 4.7 do ODS 4:**
-> "Até 2030, garantir que todos os aprendizes adquiram os conhecimentos e habilidades necessários para promover o desenvolvimento sustentável, inclusive por meio da educação para o desenvolvimento sustentável e estilos de vida sustentáveis, direitos humanos, igualdade de gênero, promoção de uma cultura de paz e não violência, cidadania global e valorização da diversidade cultural."
-> ([sdgs.un.org](https://sdgs.un.org/goals/goal4))
+Sinta-se à vontade para contribuir com o projeto. Para isso, faça um fork do repositório, crie uma branch para suas modificações e envie um pull request.
 
 ---
 
+
+Desenvolvido pela Equipe Lantra
+=======
 > Projeto desenvolvido como parte do programa **Bolsa Futuro Digital**.
