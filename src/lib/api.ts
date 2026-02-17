@@ -46,6 +46,8 @@ export const authApi = {
     api.post('/users/', data),
   
   getMe: () => api.get('/users/me/'),
+  
+  becomeAluno: () => api.post('/users/become-aluno/'),
 };
 
 // Dashboard endpoints
@@ -83,6 +85,7 @@ export const trailsApi = {
   getOne: (id: number) => api.get(`/trails/${id}/`),
   create: (data: any) => api.post('/trails/', data),
   update: (id: number, data: any) => api.patch(`/trails/${id}/`, data),
+  delete: (id: number) => api.delete(`/trails/${id}/`),
 };
 
 export default api;

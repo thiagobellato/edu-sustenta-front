@@ -9,6 +9,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 
 // Public Pages
 import Landing from "@/pages/Landing";
+import About from "@/pages/About"; // Importado aqui
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import NotFound from "@/pages/NotFound";
@@ -18,10 +19,13 @@ import Home from "@/pages/Home";
 import Profile from "@/pages/Profile";
 import ManagerSchools from "@/pages/ManagerSchools";
 import TeacherTrails from "@/pages/TeacherTrails";
+import CreateTrail from "@/pages/CreateTrail";
 import Students from "@/pages/Students";
 import Professors from "@/pages/Professors";
 import Explore from "@/pages/Explore";
+import TrailDetail from "@/pages/TrailDetail";
 import Notifications from "@/pages/Notifications";
+import ChooseRole from "@/pages/ChooseRole";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,8 +46,19 @@ const App = () => (
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<About />} /> 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+
+            {/* Choose Role - Only for USER role (outside layout) */}
+            <Route
+              path="/choose-role"
+              element={
+                <PrivateRoute allowedRoles={['user']}>
+                  <ChooseRole />
+                </PrivateRoute>
+              }
+            />
 
             {/* Protected Routes with Layout */}
             <Route
@@ -77,6 +92,22 @@ const App = () => (
                 }
               />
               <Route
+                path="/teacher-trails/new"
+                element={
+                  <PrivateRoute allowedRoles={['professor']}>
+                    <CreateTrail />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/teacher-trails/:id/edit"
+                element={
+                  <PrivateRoute allowedRoles={['professor']}>
+                    <CreateTrail />
+                  </PrivateRoute>
+                }
+              />
+              <Route
                 path="/students"
                 element={
                   <PrivateRoute allowedRoles={['professor']}>
@@ -94,6 +125,14 @@ const App = () => (
                   </PrivateRoute>
                 }
               />
+              <Route
+                path="/explore/:id"
+                element={
+                  <PrivateRoute allowedRoles={['aluno']}>
+                    <TrailDetail />
+                  </PrivateRoute>
+                }
+              />
 
               {/* Gestor Additional Routes */}
               <Route
@@ -105,8 +144,6 @@ const App = () => (
                 }
               />
             </Route>
-
-            
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />

@@ -7,8 +7,9 @@ import {
   CheckCircle,
   Gift,
   MessageSquare,
+  Check,
 } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { notificationsApi } from '@/lib/api';
 import { cn } from '@/lib/utils';
@@ -25,23 +26,23 @@ interface Notification {
 const typeConfig = {
   info: {
     icon: Info,
-    className: 'bg-blue-100 text-blue-600',
+    className: 'bg-blue-50 text-blue-600 border-blue-100',
   },
   warning: {
     icon: AlertTriangle,
-    className: 'bg-amber-100 text-amber-600',
+    className: 'bg-amber-50 text-amber-600 border-amber-100',
   },
   success: {
     icon: CheckCircle,
-    className: 'bg-emerald-100 text-emerald-600',
+    className: 'bg-emerald-50 text-emerald-600 border-emerald-100',
   },
   reward: {
     icon: Gift,
-    className: 'bg-purple-100 text-purple-600',
+    className: 'bg-purple-50 text-purple-600 border-purple-100',
   },
   message: {
     icon: MessageSquare,
-    className: 'bg-teal-100 text-teal-600',
+    className: 'bg-[#45C4B0]/10 text-[#012030] border-[#45C4B0]/20',
   },
 };
 
@@ -79,34 +80,37 @@ export default function Notifications() {
   if (isLoading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#012030]" />
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6 animate-fade-in">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">Notificações</h1>
-        <p className="text-muted-foreground">
-          Fique por dentro de todas as novidades
-        </p>
+    <div className="mx-auto max-w-3xl space-y-8 animate-fade-in">
+      <div className="flex items-end justify-between border-b border-[#012030]/5 pb-6">
+        <div>
+          <h1 className="font-display text-3xl font-bold text-[#012030]">Notificações</h1>
+          <p className="text-[#012030]/60">Fique por dentro das atualizações da sua jornada</p>
+        </div>
+        {notifications.some(n => !n.read) && (
+          <Badge className="bg-[#45C4B0] text-[#012030] hover:bg-[#45C4B0]/90">
+            {notifications.filter(n => !n.read).length} Novas
+          </Badge>
+        )}
       </div>
 
       {notifications.length === 0 ? (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-16">
-            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary">
-              <Bell className="h-8 w-8 text-muted-foreground" />
+        <Card className="border-dashed border-2 bg-transparent">
+          <CardContent className="flex flex-col items-center justify-center py-20">
+            <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-secondary/50">
+              <Bell className="h-10 w-10 text-[#012030]/20" />
             </div>
-            <h3 className="mb-2 text-xl font-semibold">Nenhuma notificação</h3>
-            <p className="text-muted-foreground">
-              Você está em dia com tudo!
-            </p>
+            <h3 className="text-xl font-bold text-[#012030]">Tudo limpo por aqui!</h3>
+            <p className="text-[#012030]/50">Você não possui novas notificações no momento.</p>
           </CardContent>
         </Card>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {notifications.map((notification) => {
             const config = typeConfig[notification.type] || typeConfig.info;
             const Icon = config.icon;
@@ -115,39 +119,55 @@ export default function Notifications() {
               <Card
                 key={notification.id}
                 className={cn(
-                  'transition-all',
-                  !notification.read && 'border-l-4 border-l-primary bg-secondary/20'
+                  'group transition-all hover:shadow-md border-[#012030]/10 overflow-hidden relative',
+                  !notification.read && 'bg-white shadow-sm'
                 )}
               >
-                <CardContent className="flex items-start gap-4 p-4">
-                  <div
-                    className={cn(
-                      'flex h-10 w-10 shrink-0 items-center justify-center rounded-full',
-                      config.className
-                    )}
-                  >
-                    <Icon className="h-5 w-5" />
+                {!notification.read && (
+                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#45C4B0]" />
+                )}
+                
+                <CardContent className="flex items-start gap-4 p-5">
+                  <div className={cn(
+                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border transition-colors',
+                    config.className
+                  )}>
+                    <Icon className="h-6 w-6" />
                   </div>
+
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-start justify-between gap-2">
-                      <h4 className="font-semibold">{notification.title}</h4>
-                      <span className="shrink-0 text-xs text-muted-foreground">
-                        {formatDate(notification.created_at)}
-                      </span>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="space-y-1">
+                        <h4 className={cn(
+                          "font-bold leading-none tracking-tight",
+                          notification.read ? "text-[#012030]/70" : "text-[#012030]"
+                        )}>
+                          {notification.title}
+                        </h4>
+                        <p className="text-xs font-medium text-[#012030]/40 uppercase tracking-wider">
+                          {formatDate(notification.created_at)}
+                        </p>
+                      </div>
+
+                      {!notification.read && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-[#45C4B0] hover:bg-[#45C4B0]/10 hover:text-[#012030] shrink-0"
+                          onClick={() => markAsReadMutation.mutate(notification.id)}
+                          title="Marcar como lida"
+                        >
+                          <Check className="h-4 w-4" />
+                        </Button>
+                      )}
                     </div>
-                    <p className="mt-1 text-sm text-muted-foreground">
+
+                    <p className={cn(
+                      "mt-2 text-sm leading-relaxed",
+                      notification.read ? "text-[#012030]/50" : "text-[#012030]/80"
+                    )}>
                       {notification.message}
                     </p>
-                    {!notification.read && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="mt-2 h-auto p-0 text-primary hover:underline"
-                        onClick={() => markAsReadMutation.mutate(notification.id)}
-                      >
-                        Marcar como lida
-                      </Button>
-                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -156,5 +176,14 @@ export default function Notifications() {
         </div>
       )}
     </div>
+  );
+}
+
+// Pequeno componente auxiliar de Badge caso não esteja importado
+function Badge({ children, className }: { children: React.ReactNode, className?: string }) {
+  return (
+    <span className={cn("inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold transition-colors", className)}>
+      {children}
+    </span>
   );
 }

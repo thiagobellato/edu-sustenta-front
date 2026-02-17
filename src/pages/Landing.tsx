@@ -95,12 +95,15 @@ export default function Landing() {
 
   
 
-          <nav className="hidden items-center gap-12 md:flex hover:shadow-xl hover:shadow-emerald-400/60">
-            <Link to="/" className="text-sm font-medium text-white hover:text-emerald-200">Sobre</Link>            
-            <Link to="/login" className="font-display text-sm font-medium  text-emerald-400 text-accent hover:underline">
-            LOGIN
-            </Link>
-          </nav>
+          <nav className="hidden items-center gap-12 md:flex">
+  
+  <Link to="/about" className="text-sm font-medium text-white hover:text-emerald-200 transition-colors">
+    Sobre
+  </Link>            
+  <Link to="/login" className="font-display text-sm font-medium text-emerald-400 hover:underline">
+    LOGIN
+  </Link>
+</nav>
 
 
           

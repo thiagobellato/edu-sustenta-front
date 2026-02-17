@@ -24,6 +24,10 @@ export function PrivateRoute({ children, allowedRoles }: PrivateRouteProps) {
   }
 
   if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+    // Se for USER e tentar acessar rota protegida, redireciona para escolha de papel
+    if (user.role === 'user') {
+      return <Navigate to="/choose-role" replace />;
+    }
     return <Navigate to="/home" replace />;
   }
 
